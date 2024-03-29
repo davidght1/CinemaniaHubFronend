@@ -1,0 +1,106 @@
+/* ListMovies.css */
+
+/* Container for the entire movie list */
+.movie-list-container {
+    padding: 20px; /* Add padding around the movie list */
+  }
+  
+  /* Container for each genre row */
+  .genre-row {
+    margin-bottom: 30px; /* Add space between genre rows */
+  }
+  
+  /* Title for each genre */
+  .genre-title {
+    font-size: 24px;
+    margin-bottom: 15px; /* Add space below genre title */
+  }
+  
+  /* Container for the list of movies */
+  .movie-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow movies to wrap to the next line */
+  }
+  
+  /* Individual movie card */
+  .movie-card {
+    width: 200px; /* Set a fixed width for each movie card */
+    margin-right: 20px; /* Add space between movie cards */
+    margin-bottom: 20px; /* Add space below movie cards */
+    border-radius: 8px;
+    overflow: hidden; /* Hide overflow content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+  }
+  
+  /* Movie poster image */
+  .movie-poster {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover; /* Ensure the image covers the entire container */
+  }
+  
+  /* Details section of the movie card */
+  .movie-details {
+    padding: 15px;
+  }
+  
+  /* Title of the movie */
+  .movie-title {
+    font-size: 18px;
+    margin-bottom: 10px; /* Add space below movie title */
+  }
+  
+  /* Description of the movie */
+  .movie-description {
+    font-size: 14px;
+    margin-bottom: 10px; /* Add space below movie description */
+  }
+  
+  /* Genre of the movie */
+  .movie-genre {
+    font-size: 14px;
+    margin-bottom: 10px; /* Add space below movie genre */
+  }
+  
+  /* Rating section of the movie card */
+  .movie-rating {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  /* Text indicating rating */
+  .rating-text {
+    margin-right: 5px; /* Add space between text and stars */
+  }
+  
+  /* Container for star icons */
+  .rating-stars {
+    display: flex;
+  }
+  
+  /* Star icons for rating */
+  .star-filled,
+  .star-half,
+  .star-empty {
+    font-size: 16px;
+    color: #fbc02d;
+  }
+  
+  /* Half star icon */
+  .star-half::before {
+    content: '\2605';
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    width: 50%;
+  }
+  
+  /* Average rating text */
+  .average-rating {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
