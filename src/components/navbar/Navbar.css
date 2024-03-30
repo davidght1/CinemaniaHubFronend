@@ -1,30 +1,37 @@
 /* Navbar.css */
 
 .navbar {
-    background-color: #fff; /* White background color */
-    color: #333; /* Text color */
+    background-color: #fff;
+    color: #333;
     padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000; /* Ensure navbar stays on top of other content */
+    z-index: 1000;
   }
   
   .navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; /* Limit the width of the container */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 0 20px; /* Add horizontal padding */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
   
   .logo {
+    display: flex;
+    align-items: center;
     font-size: 24px;
     text-decoration: none;
-    color: #333; /* Text color */
+    color: #333;
+  }
+  
+  .logo img {
+    height: 50px; /* Adjust the height of the logo */
+    margin-right: 10px; /* Add spacing between logo and text */
   }
   
   .nav-links {
@@ -43,12 +50,12 @@
   
   .nav-links a {
     text-decoration: none;
-    color: #777; /* Light gray text color */
+    color: #777;
     transition: color 0.3s ease;
   }
   
   .nav-links a:hover {
-    color: #222; /* Darker text color on hover */
+    color: #222;
   }
   
   /* Hamburger Menu */
@@ -58,16 +65,16 @@
   
   .nav-links button {
     padding: 10px 20px;
-    background-color: #fbc02d; /* Yellow background color */
+    background-color: #fbc02d;
     border: none;
     border-radius: 5px;
-    color: #333; /* Text color */
+    color: #333;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .nav-links button:hover {
-    background-color: #ffca28; /* Darker yellow background color on hover */
+    background-color: #ffca28;
   }
   
   @media (max-width: 768px) {
@@ -88,12 +95,12 @@
       display: none;
       flex-direction: column;
       position: absolute;
-      top: 30px; /* Adjusted top value */
+      top: 30px;
       left: 0;
       background-color: #fff;
       width: 100%;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      z-index: 999; /* Ensure menu is on top of other content */
+      z-index: 999;
     }
   
     .nav-links.open {
@@ -105,12 +112,12 @@
     }
   
     .nav-links a {
-      color: #333; /* Text color */
+      color: #333;
       transition: color 0.3s ease;
     }
   
     .nav-links a:hover {
-      color: #fbc02d; /* Change color on hover */
+      color: #fbc02d;
     }
   }
   

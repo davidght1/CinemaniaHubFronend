@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import logo from '../../../public/CinemaniaHub.png'; // Import the logo image
 
 const Navbar = ({ isAuthenticated }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,9 @@ const Navbar = ({ isAuthenticated }) => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="logo" onClick={closeMenu}>CinemaniaHub</Link>
+        <Link to="/" className="logo" onClick={closeMenu}>
+          <img src={logo} alt="CinemaniaHub Logo" />
+        </Link>
         <div className="menu-toggle" onClick={toggleMenu}>
           <div className="bar"></div>
           <div className="bar"></div>
