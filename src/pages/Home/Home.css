@@ -2,6 +2,11 @@
 
 .home-container {
     padding: 20px; /* Add some padding around the content */
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Center text horizontally */
   }
   
   .home-title {

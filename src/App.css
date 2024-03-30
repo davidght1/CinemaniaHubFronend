@@ -1,0 +1,29 @@
+/* App.css */
+
+body {
+    margin: 0;
+    padding-top: 60px; /* Initial padding for the navbar */
+  }
+  
+  /* Adjust padding dynamically based on navbar height */
+  @media (max-width: 768px) {
+    body {
+      padding-top: 100px; /* Adjusted padding for smaller resolutions */
+    }
+  }
+  
+  .content {
+    padding: 20px; /* Add padding around the content */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+    height: calc(100vh - 60px); /* Adjusted height considering the navbar */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  
+  /* Adjust height dynamically based on navbar height */
+  @media (max-width: 768px) {
+    .content {
+      height: calc(100vh - 100px); /* Adjusted height for smaller resolutions */
+    }
+  }
+  
