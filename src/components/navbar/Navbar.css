@@ -1,0 +1,116 @@
+/* Navbar.css */
+
+.navbar {
+    background-color: #fff; /* White background color */
+    color: #333; /* Text color */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure navbar stays on top of other content */
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Limit the width of the container */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 0 20px; /* Add horizontal padding */
+  }
+  
+  .logo {
+    font-size: 24px;
+    text-decoration: none;
+    color: #333; /* Text color */
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links li:last-child {
+    margin-right: 0;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #777; /* Light gray text color */
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #222; /* Darker text color on hover */
+  }
+  
+  /* Hamburger Menu */
+  .menu-toggle {
+    display: none;
+  }
+  
+  .nav-links button {
+    padding: 10px 20px;
+    background-color: #fbc02d; /* Yellow background color */
+    border: none;
+    border-radius: 5px;
+    color: #333; /* Text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-links button:hover {
+    background-color: #ffca28; /* Darker yellow background color on hover */
+  }
+  
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+  
+    .menu-toggle .bar {
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      margin: 3px 0;
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 30px; /* Adjusted top value */
+      left: 0;
+      background-color: #fff;
+      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 999; /* Ensure menu is on top of other content */
+    }
+  
+    .nav-links.open {
+      display: flex;
+    }
+  
+    .nav-links li {
+      margin: 10px 0;
+    }
+  
+    .nav-links a {
+      color: #333; /* Text color */
+      transition: color 0.3s ease;
+    }
+  
+    .nav-links a:hover {
+      color: #fbc02d; /* Change color on hover */
+    }
+  }
+  

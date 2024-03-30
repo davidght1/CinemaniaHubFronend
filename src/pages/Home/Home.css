@@ -1,0 +1,17 @@
+/* Home.css */
+
+.home-container {
+    padding: 20px; /* Add some padding around the content */
+  }
+  
+  .home-title {
+    font-size: 32px; /* Increase the font size of the title */
+    color: #333; /* Set the color of the title */
+    margin-bottom: 20px; /* Add some space below the title */
+  }
+  
+  /* Style the list of movies */
+  .movie-list-container {
+    margin-top: 20px; /* Add some space above the movie list */
+  }
+  
