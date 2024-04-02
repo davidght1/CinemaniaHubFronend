@@ -6,16 +6,15 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/navbar/Navbar';
-import { UserProvider } from './context/UserContext';
+import { UserProvider, UserContext } from './context/UserContext';
 
 function App() {
-  const isAuthenticated = false; // Implement authentication logic here
 
   return (
     <MovieProvider>
       <UserProvider>
       <BrowserRouter>
-        <Navbar isAuthenticated={isAuthenticated} />
+        <Navbar/>
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />

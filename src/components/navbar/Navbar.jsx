@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react'; // Import useContext from react
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../../public/CinemaniaHub.png'; // Import the logo image
+import { UserContext } from '../../context/UserContext';
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useContext(UserContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
