@@ -9,6 +9,7 @@ const Register = () => {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
 
   const { name, email, password } = formData;
 
@@ -18,9 +19,12 @@ const Register = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const success = await registerUser(formData);
-    if (success) {
-      window.location.href = '/'; // This will navigate to the home page
+    const response = await registerUser(formData);
+    if (response.error) {
+      setError(response.error);
+    } else {
+      // Registration successful, navigate to the home page
+      window.location.href = '/';
     }
   };
 
@@ -28,6 +32,7 @@ const Register = () => {
     <div className="register-wrapper">
       <div className="register-container">
         <h2>Register</h2>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit} className="register-form">
           <div className="form-group">
             <label>Name:</label>
