@@ -1,9 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import './Register.css'; // Import CSS file for styling
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const { registerUser } = useContext(UserContext);
+  const { registerUser, user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +18,12 @@ const Register = () => {
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  },[user])
 
   const handleSubmit = async e => {
     e.preventDefault();

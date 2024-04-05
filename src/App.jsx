@@ -5,7 +5,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/navbar/Navbar';
-import { UserProvider } from './context/UserContext';
+import { UserContext, UserProvider } from './context/UserContext';
 import React, { useContext, useEffect } from 'react';
 
 function App() {

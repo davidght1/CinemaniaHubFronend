@@ -39,38 +39,72 @@ const UserProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
 
-// Register user
-const registerUser = async (formData) => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/user/register', formData);
-    
-    if (response.status === 201) {
-      // Registration successful
-      const { id, email, name, token } = response.data;
+  // Register user
+  const registerUser = async (formData) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/register', formData);
       
-      // Update user state and localStorage
-      setUser({ id, email, name }); // Include the name in the user object
-      setIsAuthenticated(true);
-      localStorage.setItem('userData', JSON.stringify({ id, email, name })); // Include the name in localStorage
-      localStorage.setItem('token', token);
+      if (response.status === 201) {
+        // Registration successful
+        const { id, email, name, userRole, token } = response.data;
+        setUser({ id, email, name, userRole });
+        setIsAuthenticated(true);
+        localStorage.setItem('userData', JSON.stringify({ id, email, name, userRole }));
+        localStorage.setItem('token', token);
+      }
+    
+      return response.data;
+    } catch (error) {
+      console.error('Error registering user:', error.response.data);
+      if (error.response.data && error.response.data.error) {
+        return { error: error.response.data.error };
+      } else {
+        return { error: 'Registration failed. Please try again.' };
+      }
     }
-  
-    return response.data; // Return response data to handle in the component
-  } catch (error) {
-    console.error('Error registering user:', error.response.data);
-    // Check if the error response contains an error message
-    if (error.response.data && error.response.data.error) {
-      // If yes, return the error message
-      return { error: error.response.data.error };
-    } else {
-      // If not, return a generic error message
-      return { error: 'Registration failed. Please try again.' };
+  };
+
+  // Login user
+  const loginUser = async (formData) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/login', formData);
+      
+      if (response.status === 200) {
+        const { id, email, name, userRole, token } = response.data;
+        setUser({ id, email, name, userRole });
+        setIsAuthenticated(true);
+        localStorage.setItem('userData', JSON.stringify({ id, email, name, userRole }));
+        localStorage.setItem('token', token);
+      }
+    
+      return response.data;
+    } catch (error) {
+      console.error('Error logging in:', error.response.data);
+      if (error.response.data && error.response.data.error) {
+        return { error: error.response.data.error };
+      } else {
+        return { error: 'Login failed. Please try again.' };
+      }
+    }
+  };
+
+
+  // logout user
+  const logoutUser = async()=>{
+    try{
+      setUser(null)
+      setIsAuthenticated(false)
+      localStorage.removeItem('userData')
+      localStorage.removeItem('token')
+      await axios.post('http://localhost:5000/api/user/logout');
+    }
+    catch(error){
+      console.log('Something went wrong', error)
     }
   }
-};
 
   return (
-    <UserContext.Provider value={{ user, isAuthenticated, registerUser, checkTokenExpiration }}>
+    <UserContext.Provider value={{ user, isAuthenticated, registerUser, loginUser, checkTokenExpiration, logoutUser }}>
       {children}
     </UserContext.Provider>
   );

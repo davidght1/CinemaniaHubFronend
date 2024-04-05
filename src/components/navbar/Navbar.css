@@ -120,4 +120,14 @@
       color: #fbc02d;
     }
   }
+
+  /* Navbar.css */
+
+.welcome-back {
+  margin-left: auto; /* Push the welcome message and user's name to the right */
+  color: #333; /* Text color */
+  font-weight: bold; /* Make the text bold */
+  margin-right: 20px; /* Add right margin */
+}
+
   

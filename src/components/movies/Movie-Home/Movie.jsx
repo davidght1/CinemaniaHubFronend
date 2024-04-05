@@ -1,7 +1,14 @@
-import React from 'react';
-import './Movie.css'; // Import CSS file for movie styles
+import React, { useContext } from 'react';
+import './Movie.css'; 
+import { UserContext } from '../../../context/UserContext'; // Import the UserContext
+import { FaRegTrashCan } from "react-icons/fa6";
+import { RiUpload2Line } from "react-icons/ri";
+
 
 const Movie = ({ movie }) => {
+  const { user } = useContext(UserContext); // Retrieve user from UserContext
+  const userRole = user && user.userRole; // Extract userRole from user object if user exists
+
   // Calculate average rating
   const averageRating = movie.ratings.reduce((total, rating) => total + rating.rating, 0) / movie.ratings.length;
 
@@ -18,7 +25,7 @@ const Movie = ({ movie }) => {
     if (halfStar) {
       stars.push(<span key={filledStars} className="star-half">&#9733;</span>);
     }
-
+    
     const emptyStars = 5 - stars.length;
     for (let i = 0; i < emptyStars; i++) {
       stars.push(<span key={filledStars + i + 1} className="star-empty">&#9734;</span>);
@@ -39,6 +46,12 @@ const Movie = ({ movie }) => {
           <div className="rating-stars">{renderStars()}</div>
           <span className="average-rating">{averageRating.toFixed(1)}</span>
         </div>
+        {userRole === 'admin' && (
+          <div className="admin-actions">
+            <FaRegTrashCan />
+            <RiUpload2Line />
+          </div>
+        )}
       </div>
     </div>
   );

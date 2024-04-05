@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'; // Import useContext from react
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../../../public/CinemaniaHub.png'; // Import the logo image
+import logo from '../../../public/CinemaniaHub.png';
 import { UserContext } from '../../context/UserContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated } = useContext(UserContext);
+  const { user, isAuthenticated, logoutUser } = useContext(UserContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -17,9 +17,21 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // Implement your logout logic here
-    console.log("Logout");
+    logoutUser();
   };
+
+  useEffect(() => {
+    // Debug: Log authentication state and user object
+    console.log('isAuthenticated:', isAuthenticated);
+    console.log('user:', user);
+  }, [isAuthenticated, user]);
+
+  // Debug: Log user role for additional visibility
+  useEffect(() => {
+    if (user && user.userRole) {
+      console.log('User role:', user.userRole);
+    }
+  }, [user]);
 
   return (
     <nav className="navbar">
@@ -32,17 +44,56 @@ const Navbar = () => {
           <div className="bar"></div>
           <div className="bar"></div>
         </div>
-        <ul className={isOpen ? "nav-links open" : "nav-links"}>
-          <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+        <ul className={isOpen ? 'nav-links open' : 'nav-links'}>
+          <li>
+            <Link to="/" onClick={closeMenu}>
+              Home
+            </Link>
+          </li>
           {!isAuthenticated ? (
             <>
-              <li><Link to="/login" onClick={closeMenu}>Login</Link></li>
-              <li><Link to="/register" onClick={closeMenu}>Register</Link></li>
+              <li>
+                <Link to="/login" onClick={closeMenu}>
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/register" onClick={closeMenu}>
+                  Register
+                </Link>
+              </li>
             </>
           ) : (
             <>
-              <li><Link to="/products" onClick={closeMenu}>Products</Link></li>
-              <li><button onClick={handleLogout}>Logout</button></li>
+              {user && user.userRole === 'admin' && (
+                <li>
+                  <Link to="/add-movie" onClick={closeMenu}>
+                    Add Movie
+                  </Link>
+                </li>
+              )}
+              {user && user.userRole === 'cinemaowner' && (
+                <li>
+                  <Link to="/movie-stats" onClick={closeMenu}>
+                    Movie Stats
+                  </Link>
+                </li>
+              )}
+              {user && user.userRole === 'user' && (
+                <li>
+                  <Link to="/product" onClick={closeMenu}>
+                    Product
+                  </Link>
+                </li>
+              )}
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+              {user && (
+                <li className="welcome-back">
+                  Welcome back, {user.name}
+                </li>
+              )}
             </>
           )}
         </ul>
