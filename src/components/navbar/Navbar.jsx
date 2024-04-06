@@ -22,14 +22,11 @@ const Navbar = () => {
 
   useEffect(() => {
     // Debug: Log authentication state and user object
-    console.log('isAuthenticated:', isAuthenticated);
-    console.log('user:', user);
   }, [isAuthenticated, user]);
 
   // Debug: Log user role for additional visibility
   useEffect(() => {
     if (user && user.userRole) {
-      console.log('User role:', user.userRole);
     }
   }, [user]);
 

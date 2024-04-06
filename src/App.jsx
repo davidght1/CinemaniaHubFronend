@@ -7,6 +7,7 @@ import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/navbar/Navbar';
 import { UserContext, UserProvider } from './context/UserContext';
 import React, { useContext, useEffect } from 'react';
+import SingleMovie from './pages/SingleMovie/SingleMovie';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/single-movie/:id" element={<SingleMovie />} />
             </Routes>
           </div>
         </BrowserRouter>

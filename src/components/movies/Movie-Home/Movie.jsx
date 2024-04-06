@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Movie.css'; 
 import { UserContext } from '../../../context/UserContext'; // Import the UserContext
 import { FaRegTrashCan } from "react-icons/fa6";
 import { RiUpload2Line } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 const Movie = ({ movie }) => {
@@ -11,6 +13,7 @@ const Movie = ({ movie }) => {
 
   // Calculate average rating
   const averageRating = movie.ratings.reduce((total, rating) => total + rating.rating, 0) / movie.ratings.length;
+
 
   // Function to convert rating to star icons
   const renderStars = () => {
@@ -39,7 +42,6 @@ const Movie = ({ movie }) => {
       <img className="movie-poster" src={movie.pictureUrl} alt={movie.title} />
       <div className="movie-details">
         <h2 className="movie-title">{movie.title}</h2>
-        <p className="movie-description">{movie.description}</p>
         <p className="movie-genre">Genre: {movie.genre}</p>
         <div className="movie-rating">
           <span className="rating-text">Rating:</span>
@@ -52,6 +54,9 @@ const Movie = ({ movie }) => {
             <RiUpload2Line />
           </div>
         )}
+      <Link to={`/single-movie/${movie._id}`} className="eye-icon">
+        <FaEye />
+      </Link>
       </div>
     </div>
   );

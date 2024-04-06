@@ -1,5 +1,3 @@
-// ListMovies.jsx
-
 import React from 'react';
 import Movie from '../Movie-Home/Movie';
 import './ListMovies.css';
@@ -18,7 +16,7 @@ const ListMovies = ({ movies }) => {
     <div className="movie-list-container">
       {Object.entries(moviesByGenre).map(([genre, moviesInGenre]) => (
         <div key={genre} className="genre-row">
-          <h2 className="genre-title">{genre.toUpperCase()}</h2> {/* Uppercase genre title */}
+          <h2 className="genre-title">{genre.toUpperCase()}</h2>
           <div className="movie-list">
             {moviesInGenre.map((movie) => (
               <Movie key={movie._id} movie={movie} />

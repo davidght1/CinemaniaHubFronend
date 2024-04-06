@@ -55,7 +55,6 @@ const UserProvider = ({ children }) => {
     
       return response.data;
     } catch (error) {
-      console.error('Error registering user:', error.response.data);
       if (error.response.data && error.response.data.error) {
         return { error: error.response.data.error };
       } else {
@@ -79,12 +78,21 @@ const UserProvider = ({ children }) => {
     
       return response.data;
     } catch (error) {
-      console.error('Error logging in:', error.response.data);
       if (error.response.data && error.response.data.error) {
         return { error: error.response.data.error };
       } else {
         return { error: 'Login failed. Please try again.' };
       }
+    }
+  };
+
+    // Get user details by userId
+  const getUserDetails = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/user/getUserDetails/${userId}`);
+      return response.data; // Assuming response.data contains user details
+    } catch (error) {
+      return null;
     }
   };
 
@@ -104,7 +112,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, isAuthenticated, registerUser, loginUser, checkTokenExpiration, logoutUser }}>
+    <UserContext.Provider value={{ user, isAuthenticated, registerUser, loginUser, checkTokenExpiration, logoutUser, getUserDetails }}>
       {children}
     </UserContext.Provider>
   );

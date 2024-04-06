@@ -91,3 +91,41 @@
   font-weight: bold;
   color: #333; /* Darken the color of the rating */
 }
+
+/* Icons for admin actions */
+.admin-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Icon styles for admin actions */
+.admin-actions svg {
+  font-size: 24px;
+  cursor: pointer;
+  color: #f44336; /* Red color for delete icon */
+  transition: color 0.3s ease;
+}
+
+.admin-actions svg:hover {
+  color: #d32f2f; /* Darker red color on hover */
+}
+
+/* Eye icon for regular user */
+.eye-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #2196f3; /* Blue color for eye icon */
+  color: #fff; /* White color for icon */
+  margin-top: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.eye-icon:hover {
+  background-color: #1976d2; /* Darker blue color on hover */
+}
