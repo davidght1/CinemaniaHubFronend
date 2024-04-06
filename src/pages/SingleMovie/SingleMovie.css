@@ -2,59 +2,72 @@
 
 .single-movie-container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto; /* Centered with some top and bottom margin */
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   h1 {
-    font-size: 24px;
-    margin-top: 50px; /* Increase bottom margin for more space */
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
   }
   
   .movie-details {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
   }
   
   .movie-ratings {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .user-posts {
-    margin-top: 20px;
-  }
-  
-  .user-post {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .user-post p {
-    margin: 5px 0;
+    margin-bottom: 20px;
   }
   
   .movie-image-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
   
   .movie-image {
     max-width: 100%;
     height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+  }
+  
+  .user-posts {
+    margin-top: 30px;
+  }
+  
+  .user-post {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 300px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .user-post p {
+    margin: 10px 0;
+  }
+  
+  /* Star rating styles */
+  .rating-stars {
+    display: flex;
+    align-items: center;
+  }
+  
+  .star-icon {
+    color: #ffc107;
+    font-size: 18px;
   }
   
