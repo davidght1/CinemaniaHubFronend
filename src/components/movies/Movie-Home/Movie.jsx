@@ -6,14 +6,16 @@ import { RiUpload2Line } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
-
 const Movie = ({ movie }) => {
   const { user } = useContext(UserContext); // Retrieve user from UserContext
   const userRole = user && user.userRole; // Extract userRole from user object if user exists
 
   // Calculate average rating
-  const averageRating = movie.ratings.reduce((total, rating) => total + rating.rating, 0) / movie.ratings.length;
-
+  let averageRating = 0;
+  if (movie.ratings && movie.ratings.length > 0) {
+    const totalRating = movie.ratings.reduce((total, rating) => total + rating.rating, 0);
+    averageRating = totalRating / movie.ratings.length;
+  }
 
   // Function to convert rating to star icons
   const renderStars = () => {
@@ -54,9 +56,9 @@ const Movie = ({ movie }) => {
             <RiUpload2Line />
           </div>
         )}
-      <Link to={`/single-movie/${movie._id}`} className="eye-icon">
-        <FaEye />
-      </Link>
+        <Link to={`/single-movie/${movie._id}`} className="eye-icon">
+          <FaEye />
+        </Link>
       </div>
     </div>
   );

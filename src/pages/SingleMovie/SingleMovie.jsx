@@ -1,52 +1,47 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMovieContext } from '../../context/MovieContext';
-import { UserContext } from '../../context/UserContext';
 import { FaStar } from 'react-icons/fa';
 import './SingleMovie.css'; // Import the CSS file
 
 const SingleMovie = () => {
   const { id } = useParams();
-  const { getSingleMovie } = useMovieContext();
-  const { getUserDetails } = useContext(UserContext);
+  const { getSingleMovie, updateRating } = useMovieContext();
   const [movie, setMovie] = useState(null);
 
+  // Fetch movie details
   useEffect(() => {
     const fetchMovieDetails = async () => {
-        console.log(id)
       const singleMovie = await getSingleMovie(id);
-      console.log('Fetched movie:', singleMovie);
       setMovie(singleMovie);
     };
     fetchMovieDetails();
   }, [id, getSingleMovie]);
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      if (movie && movie.userPosts.length > 0) {
-        const updatedUserPosts = await Promise.all(
-          movie.userPosts.map(async (post) => {
-            if (post.userId) {
-              const userDetails = await getUserDetails(post.userId);
-              return { ...post, userName: userDetails?.name || 'Unknown User' };
-            }
-            return post;
-          })
-        );
-        setMovie((prevMovie) => ({ ...prevMovie, userPosts: updatedUserPosts }));
-      }
-    };
-    fetchUserDetails();
-  }, [movie, getUserDetails]);
+  // Handle movie rating
+  const handleRateMovie = async (rating) => {
+    try {
+      await updateRating(id, rating, setMovie);
+  
+      // No need to refresh movie details here; it's handled in updateRating
+    } catch (error) {
+      console.error('Error rating movie:', error);
+      alert('Failed to rate the movie. Please try again.');
+    }
+  };
 
+  // Render stars based on average rating
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= rating) {
-        stars.push(<FaStar key={i} color="#ffc107" />);
-      } else {
-        stars.push(<FaStar key={i} color="#e4e5e9" />);
-      }
+      stars.push(
+        <FaStar
+          key={i}
+          color={i <= rating ? '#ffc107' : '#e4e5e9'}
+          onClick={() => handleRateMovie(i)}
+          style={{ cursor: 'pointer' }}
+        />
+      );
     }
     return stars;
   };

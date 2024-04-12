@@ -2,7 +2,7 @@
 
 .single-movie-container {
     max-width: 800px;
-    margin: 20px auto; /* Centered with some top and bottom margin */
+    margin: 100px auto; /* Centered with some top and bottom margin */
     padding: 20px;
     background-color: #fff;
     border-radius: 12px;
