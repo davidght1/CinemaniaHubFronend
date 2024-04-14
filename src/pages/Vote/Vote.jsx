@@ -54,9 +54,7 @@ const Vote = () => {
     const choicesToSubmit = selectedChoices.map(choice => choiceToNumber[choice]);
 
     // Call submitVote function from context with numerical choices
-    await submitVote(id, choicesToSubmit);
-
-    navigate(`/single-movie/${id}`);
+    await submitVote(id, choicesToSubmit, navigate);
   };
 
   return (
