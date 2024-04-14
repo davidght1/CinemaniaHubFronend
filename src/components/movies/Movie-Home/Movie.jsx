@@ -10,6 +10,8 @@ const Movie = ({ movie }) => {
   const { user } = useContext(UserContext);
   const userRole = user && user.userRole;
 
+  const numberOfRatings = movie.ratings ? movie.ratings.length : 0;
+
   // Calculate average rating
   const averageRating = calculateAverageRating(movie);
 
@@ -49,7 +51,7 @@ const Movie = ({ movie }) => {
         <div className="movie-rating">
           <span className="rating-text">Rating:</span>
           <div className="rating-stars">{renderStars()}</div>
-          <span className="average-rating">{averageRating.toFixed(1)}</span>
+          <span className="rating-count">Users rate this movie:{numberOfRatings}</span>
         </div>
         {userRole === 'admin' && (
           <div className="admin-actions">

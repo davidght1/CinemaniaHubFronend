@@ -58,7 +58,7 @@ const SingleMovie = () => {
           <p>Genre: {movie.genre}</p>
 
           <div className="movie-ratings">
-            <p>Movie Rating:</p>
+            <p>Rate Movie:</p>
             {renderStars(
               Math.round(
                 movie.ratings.reduce((acc, cur) => acc + cur.rating, 0) / movie.ratings.length

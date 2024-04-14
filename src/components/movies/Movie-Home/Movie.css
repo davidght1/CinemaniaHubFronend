@@ -53,19 +53,21 @@
 /* Rating section of the movie card */
 .movie-rating {
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Display as a column for vertical alignment */
+  align-items: center; /* Center-align content */
   margin-top: 10px;
 }
 
 /* Text indicating rating */
 .rating-text {
-  margin-right: 5px;
+  margin-bottom: 5px; /* Add bottom margin for spacing */
   color: #555; /* Dim the color of the rating text */
 }
 
 /* Container for star icons */
 .rating-stars {
   display: flex;
+  margin-bottom: 5px; /* Add bottom margin for spacing */
 }
 
 /* Star icons for rating */
@@ -90,6 +92,14 @@
   font-size: 16px; /* Increase average rating font size */
   font-weight: bold;
   color: #333; /* Darken the color of the rating */
+}
+
+/* Rating count text */
+.rating-count {
+  font-size: 14px; /* Adjust font size */
+  color: #555; /* Dim the color of the rating count text */
+  text-align: center; /* Center-align the rating count text */
+  margin-top: 5px; /* Add top margin for spacing */
 }
 
 /* Icons for admin actions */
