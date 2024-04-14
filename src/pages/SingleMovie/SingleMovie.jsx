@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useMovieContext } from '../../context/MovieContext';
 import { FaStar } from 'react-icons/fa';
 import './SingleMovie.css'; // Import the CSS file
+import { UserContext } from '../../context/UserContext';
 
 const SingleMovie = () => {
   const { id } = useParams();
   const { getSingleMovie, updateRating } = useMovieContext();
   const [movie, setMovie] = useState(null);
+  const { user } = useContext(UserContext);
 
   // Fetch movie details
   useEffect(() => {
@@ -22,8 +24,6 @@ const SingleMovie = () => {
   const handleRateMovie = async (rating) => {
     try {
       await updateRating(id, rating, setMovie);
-  
-      // No need to refresh movie details here; it's handled in updateRating
     } catch (error) {
       console.error('Error rating movie:', error);
       alert('Failed to rate the movie. Please try again.');
@@ -65,6 +65,13 @@ const SingleMovie = () => {
               )
             )}
           </div>
+
+          {/* Display vote button conditionally */}
+          {user && user.userRole === 'user' && (
+            <Link to={`/vote/${id}`} className="vote-button-single">
+              Vote
+            </Link>
+          )}
 
           {/* Display user posts if available */}
           {movie.userPosts.length > 0 && (

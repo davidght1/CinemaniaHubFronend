@@ -8,6 +8,7 @@ import Navbar from './components/navbar/Navbar';
 import { UserContext, UserProvider } from './context/UserContext';
 import React, { useContext, useEffect } from 'react';
 import SingleMovie from './pages/SingleMovie/SingleMovie';
+import Vote from './pages/Vote/Vote';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/single-movie/:id" element={<SingleMovie />} />
+              <Route path='/vote/:id' element={<Vote/>}/>
             </Routes>
           </div>
         </BrowserRouter>

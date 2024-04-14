@@ -93,8 +93,39 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
+   // Submit vote for a movie
+   const submitVote = async (movieId, selectedChoices,user) => {
+    try {
+      if (!user || selectedChoices.length !== 3) {
+        throw new Error('Invalid user or choices');
+      }
+
+      console.log(user)
+
+      const response = await fetch(`http://localhost:5000/api/movie/vote/${movieId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ choices: selectedChoices })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+    } catch (error) {
+      console.error('Error submitting vote:', error);
+      alert('Failed to submit vote. Please try again.');
+    }
+  };
+
   return (
-    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies }}>
+    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies,submitVote }}>
       {children}
     </MovieContext.Provider>
   );
