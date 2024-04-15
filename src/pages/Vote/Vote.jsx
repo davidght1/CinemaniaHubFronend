@@ -50,12 +50,19 @@ const Vote = () => {
       return;
     }
 
-    // Map selected word-based choices to numerical values
     const choicesToSubmit = selectedChoices.map(choice => choiceToNumber[choice]);
 
-    // Call submitVote function from context with numerical choices
-    await submitVote(id, choicesToSubmit, navigate);
+    try {
+      await submitVote(id, choicesToSubmit, user);
+
+      // If no error is thrown, navigate to the single movie
+      navigate(`/single-movie/${id}`);
+    } catch (error) {
+      console.error('Error submitting vote:', error);
+      alert('Failed to submit vote. Please try again.');
+    }
   };
+
 
   return (
     <div className="vote-container">

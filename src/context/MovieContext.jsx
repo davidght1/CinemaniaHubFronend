@@ -94,34 +94,37 @@ export const MovieProvider = ({ children }) => {
   };
 
    // Submit vote for a movie
-   const submitVote = async (movieId, selectedChoices,user) => {
+   const submitVote = async (movieId, selectedChoices, user) => {
     try {
       if (!user || selectedChoices.length !== 3) {
         throw new Error('Invalid user or choices');
       }
-
-      console.log(user)
-
+  
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+  
       const response = await fetch(`http://localhost:5000/api/movie/vote/${movieId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ choices: selectedChoices })
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        alert(data.message);
-        navigate(`/single-movie/${movieId}`);
+        alert('Vote completed successfully');
+        // Optionally handle navigation here if needed
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.message);
+        throw new Error(errorData.message || 'Failed to submit vote');
       }
     } catch (error) {
       console.error('Error submitting vote:', error);
-      alert('Failed to submit vote. Please try again.');
+      alert(error.message || 'Failed to submit vote. Please try again later.');
     }
   };
 

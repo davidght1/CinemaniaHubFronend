@@ -9,6 +9,7 @@ const SingleMovie = () => {
   const { id } = useParams();
   const { getSingleMovie, updateRating } = useMovieContext();
   const [movie, setMovie] = useState(null);
+  const [commentText, setCommentText] = useState('');
   const { user } = useContext(UserContext);
 
   // Fetch movie details
@@ -27,6 +28,26 @@ const SingleMovie = () => {
     } catch (error) {
       console.error('Error rating movie:', error);
       alert('Failed to rate the movie. Please try again.');
+    }
+  };
+
+  // Handle comment submission
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+    if (commentText.trim() === '') {
+      alert('Please enter a comment.');
+      return;
+    }
+
+    try {
+      await postComment(id, commentText);
+      setCommentText(''); // Clear comment text after submission
+      // Refresh movie details to display updated comments
+      const updatedMovie = await getSingleMovie(id);
+      setMovie(updatedMovie);
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      alert('Failed to post comment. Please try again.');
     }
   };
 
@@ -85,6 +106,19 @@ const SingleMovie = () => {
                 </div>
               ))}
             </div>
+          )}
+          {/* Display post if user loggedIn*/}
+          {user && (
+            <form className="comment-form" onSubmit={handleCommentSubmit}>
+              <p>Write your comment:</p>
+              <textarea
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                placeholder="Enter your comment..."
+                required
+              />
+              <button type="submit">Post</button>
+            </form>
           )}
         </>
       ) : (
