@@ -109,11 +109,11 @@ const SingleMovie = () => {
           {/* Display post if user (with user Role 'user') loggedIn*/}
           {user && user.userRole === 'user' && (
             <form className="comment-form" onSubmit={handleCommentSubmit}>
-              <p>Write your comment:</p>
+              <p>Write your opinion:</p>
               <textarea
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
-                placeholder="Enter your comment..."
+                placeholder="Enter your opinion..."
                 required
               />
               <button type="submit">Post</button>
