@@ -128,8 +128,42 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
+    // Function to post a comment to a movie
+    const postComment = async (movieId, content) => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          alert('Please log in to post a comment.');
+          return;
+        }
+        
+        console.log(content)
+        console.log(movieId)
+
+        const response = await axios.patch(
+          `http://localhost:5000/api/movie/commends/${movieId}`,
+          { content },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        
+        // depends if we want to alert user his post 
+        // if (response && response.data) {
+        //   alert(response.data.message);
+        // }
+      } catch (error) {
+        console.error('Error posting comment:', error);
+        alert('Failed to post comment. Please try again.');
+      }
+    };
+
+
+
   return (
-    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies,submitVote }}>
+    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies,submitVote, postComment }}>
       {children}
     </MovieContext.Provider>
   );

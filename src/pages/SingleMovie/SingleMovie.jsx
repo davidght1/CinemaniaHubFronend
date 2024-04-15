@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext';
 
 const SingleMovie = () => {
   const { id } = useParams();
-  const { getSingleMovie, updateRating } = useMovieContext();
+  const { getSingleMovie, updateRating, postComment  } = useMovieContext();
   const [movie, setMovie] = useState(null);
   const [commentText, setCommentText] = useState('');
   const { user } = useContext(UserContext);
@@ -31,7 +31,6 @@ const SingleMovie = () => {
     }
   };
 
-  // Handle comment submission
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     if (commentText.trim() === '') {
@@ -40,7 +39,7 @@ const SingleMovie = () => {
     }
 
     try {
-      await postComment(id, commentText);
+      await postComment(id, commentText); // Call postComment function with movieId and commentText
       setCommentText(''); // Clear comment text after submission
       // Refresh movie details to display updated comments
       const updatedMovie = await getSingleMovie(id);
@@ -107,8 +106,8 @@ const SingleMovie = () => {
               ))}
             </div>
           )}
-          {/* Display post if user loggedIn*/}
-          {user && (
+          {/* Display post if user (with user Role 'user') loggedIn*/}
+          {user && user.userRole === 'user' && (
             <form className="comment-form" onSubmit={handleCommentSubmit}>
               <p>Write your comment:</p>
               <textarea
