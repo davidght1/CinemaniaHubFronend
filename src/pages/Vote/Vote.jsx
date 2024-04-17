@@ -11,6 +11,8 @@ const Vote = () => {
   const { submitVote } = useMovieContext(); // Get submitVote function from MovieContext
 
   const [selectedChoices, setSelectedChoices] = useState([]);
+  const [notification, setNotification] = useState({ show: false, type: '', message: '' });
+
   const availableChoices = [
     "Scariest in the world",
     "I laughed until my stomach hurt",
@@ -22,7 +24,6 @@ const Vote = () => {
     "Not for children"
   ];
 
-  // Mapping from word-based choices to numerical values (1 to 8)
   const choiceToNumber = {
     "Scariest in the world": 1,
     "I laughed until my stomach hurt": 2,
@@ -46,23 +47,35 @@ const Vote = () => {
 
   const handleVote = async () => {
     if (selectedChoices.length !== 3) {
-      alert("Please select exactly 3 choices.");
+      setNotification({ show: true, type: 'error', message: 'Please select exactly 3 choices.' });
       return;
     }
-
+  
     const choicesToSubmit = selectedChoices.map(choice => choiceToNumber[choice]);
-
+  
     try {
-      await submitVote(id, choicesToSubmit, user);
-
-      // If no error is thrown, navigate to the single movie
-      navigate(`/single-movie/${id}`);
+      const result = await submitVote(id, choicesToSubmit, user);
+  
+      if (result.success) {
+        setNotification({ show: true, type: 'success', message: 'Yay!!! We received your vote!' });
+  
+        // Automatically hide the success message after 5 seconds
+        setTimeout(() => {
+          setNotification({ show: false, type: '', message: '' });
+          navigate(`/single-movie/${id}`); // Navigate after hiding the message
+        }, 3000); // 3000 milliseconds = 3 seconds
+      }
     } catch (error) {
       console.error('Error submitting vote:', error);
-      alert('Failed to submit vote. Please try again.');
+  
+      // Handle specific error case where the user has already voted for this movie
+      if (error.message === 'already_voted') {
+        setNotification({ show: true, type: 'error', message: 'You have already voted for this movie.' });
+      } else {
+        setNotification({ show: true, type: 'error', message: 'Failed to submit vote. Please try again.' });
+      }
     }
   };
-
 
   return (
     <div className="vote-container">
@@ -87,6 +100,14 @@ const Vote = () => {
       >
         Vote
       </button>
+
+      {/* Notification component */}
+      {notification.show && (
+        <div className={`notification ${notification.type}`}>
+          <p>{notification.message}</p>
+          <button onClick={() => setNotification({ ...notification, show: false })}>Close</button>
+        </div>
+      )}
     </div>
   );
 };

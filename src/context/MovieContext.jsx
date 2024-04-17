@@ -93,8 +93,7 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
-   // Submit vote for a movie
-   const submitVote = async (movieId, selectedChoices, user) => {
+  const submitVote = async (movieId, selectedChoices, user) => {
     try {
       if (!user || selectedChoices.length !== 3) {
         throw new Error('Invalid user or choices');
@@ -116,15 +115,20 @@ export const MovieProvider = ({ children }) => {
   
       if (response.ok) {
         const data = await response.json();
-        alert('Vote completed successfully');
-        // Optionally handle navigation here if needed
+        return { success: true, message: 'Vote completed successfully' };
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to submit vote');
       }
     } catch (error) {
       console.error('Error submitting vote:', error);
-      alert(error.message || 'Failed to submit vote. Please try again later.');
+  
+      // Handle specific error case where the user has already voted for this movie
+      if (error.message.includes('already voted')) {
+        throw new Error('already_voted');
+      }
+  
+      throw new Error('Failed to submit vote. Please try again later.');
     }
   };
 
