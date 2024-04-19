@@ -4,115 +4,66 @@ import axios from 'axios';
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // Function to check token expiration
-  const checkTokenExpiration = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const tokenData = JSON.parse(atob(token.split('.')[1]));
-      const expirationTime = tokenData.exp * 1000;
-      const currentTime = Date.now();
-      if (currentTime > expirationTime) {
-        // Token is expired, log out the user
-        setUser(null);
-        setIsAuthenticated(false);
-        localStorage.removeItem('userData');
-        localStorage.removeItem('token');
-      }
-    }
-  };
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('userData');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  const [isAuthenticated, setIsAuthenticated] = useState(!!user);
 
   useEffect(() => {
-    // Check if user data exists in local storage to determine authentication
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      setUser(JSON.parse(userData));
+    const storedUser = localStorage.getItem('userData');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
       setIsAuthenticated(true);
+    } else {
+      setUser(null);
+      setIsAuthenticated(false);
     }
-    
-    // Check token expiration every minute
-    const interval = setInterval(checkTokenExpiration, 60000);
-
-    // Clear interval on component unmount
-    return () => clearInterval(interval);
   }, []);
 
-  // Register user
-  const registerUser = async (formData) => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/user/register', formData);
-      
-      if (response.status === 201) {
-        // Registration successful
-        const { id, email, name, userRole, coins, token } = response.data;
-        setUser({ id, email, name, coins, userRole });
-        setIsAuthenticated(true);
-        localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
-        localStorage.setItem('token', token);
-      }
-    
-      return response.data;
-    } catch (error) {
-      if (error.response.data && error.response.data.error) {
-        return { error: error.response.data.error };
-      } else {
-        return { error: 'Registration failed. Please try again.' };
-      }
-    }
-  };
-
-  // Login user
   const loginUser = async (formData) => {
     try {
       const response = await axios.post('http://localhost:5000/api/user/login', formData);
-      
+
       if (response.status === 200) {
-        const { id, email, name, userRole, coins, token } = response.data;
-        setUser({ id, email, name, coins, userRole });
+        const userData = response.data;
+        setUser(userData);
         setIsAuthenticated(true);
-        localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
-        localStorage.setItem('token', token);
+        localStorage.setItem('userData', JSON.stringify(userData));
       }
-    
+
       return response.data;
     } catch (error) {
-      if (error.response.data && error.response.data.error) {
-        return { error: error.response.data.error };
-      } else {
-        return { error: 'Login failed. Please try again.' };
-      }
+      console.error('Login failed:', error);
+      return { error: 'Login failed. Please try again.' };
     }
   };
 
-    // Get user details by userId
-  const getUserDetails = async (userId) => {
+  const logoutUser = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/user/getUserDetails/${userId}`);
-      return response.data; // Assuming response.data contains user details
+      await axios.get('http://localhost:5000/api/user/logout');
+      setUser(null);
+      setIsAuthenticated(false);
+      localStorage.removeItem('userData');
     } catch (error) {
-      return null;
+      console.error('Logout failed:', error);
     }
   };
 
-
-  // logout user
-  const logoutUser = async()=>{
-    try{
-      setUser(null)
-      setIsAuthenticated(false)
-      localStorage.removeItem('userData')
-      localStorage.removeItem('token')
-      await axios.get('http://localhost:5000/api/user/logout');
+  const updateUserCoins = async (newCoins) => {
+    try {
+      const updatedUser = { ...user, coins: newCoins };
+      setUser(updatedUser);
+      localStorage.setItem('userData', JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error('Failed to update user coins:', error);
     }
-    catch(error){
-      console.log('Something went wrong', error)
-    }
-  }
+  };
 
   return (
-    <UserContext.Provider value={{ user, isAuthenticated, registerUser, loginUser, checkTokenExpiration, logoutUser, getUserDetails }}>
+    <UserContext.Provider
+      value={{ user, isAuthenticated, loginUser, logoutUser, updateUserCoins }}
+    >
       {children}
     </UserContext.Provider>
   );

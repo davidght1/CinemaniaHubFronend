@@ -2,9 +2,9 @@
 
 .products-container {
     max-width: 800px;
-    margin: 20px auto; /* Updated margin for top spacing */
+    margin: 20px auto;
     padding: 20px;
-    text-align: center; /* Center align content */
+    text-align: center;
   }
   
   .coins-info {
@@ -51,5 +51,83 @@
   .product-card p {
     font-size: 16px;
     color: #555;
+  }
+  
+  .notification {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .notification.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+    margin-top: 10px;
+  }
+  
+  .product-card button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .product-card button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styling for Coupon Popup */
+  .coupon-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+  }
+  
+  .coupon-popup h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .coupon-popup p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  .coupon-popup .coupon-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .coupon-popup button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .coupon-popup button:hover {
+    background-color: #0056b3;
   }
   
