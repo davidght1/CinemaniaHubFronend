@@ -14,6 +14,10 @@ const Product = () => {
   const [error, setError] = useState('');
   const [showExitConfirmation, setShowExitConfirmation] = useState(false);
 
+  useEffect(()=>{
+    
+  },[user])
+
   useEffect(() => {
     if (!user || user.userRole !== 'user') {
       navigate('/login');

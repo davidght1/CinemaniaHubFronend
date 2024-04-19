@@ -95,7 +95,7 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
-  const submitVote = async (movieId, selectedChoices, user) => {
+  const submitVote = async (movieId, selectedChoices, user, updateUserCoins) => {
     try {
       if (!user || selectedChoices.length !== 3) {
         throw new Error('Invalid user or choices');
@@ -117,6 +117,10 @@ export const MovieProvider = ({ children }) => {
   
       if (response.ok) {
         const data = await response.json();
+  
+        // Step 1: Update user's coins in frontend context immediately
+        updateUserCoins(data.user.coins); // Update user's coins from the response
+  
         return { success: true, message: 'Vote completed successfully' };
       } else {
         const errorData = await response.json();
@@ -133,6 +137,7 @@ export const MovieProvider = ({ children }) => {
       throw new Error('Failed to submit vote. Please try again later.');
     }
   };
+  
 
     // Function to post a comment to a movie
     const postComment = async (movieId, content) => {

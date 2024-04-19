@@ -5,7 +5,7 @@ import './Vote.css'; // Import the updated CSS file
 import { useMovieContext } from '../../context/MovieContext'; // Import MovieContext
 
 const Vote = () => {
-  const { user } = useContext(UserContext);
+  const { user,updateUserCoins  } = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
   const { submitVote } = useMovieContext(); // Get submitVote function from MovieContext
@@ -54,7 +54,7 @@ const Vote = () => {
     const choicesToSubmit = selectedChoices.map(choice => choiceToNumber[choice]);
   
     try {
-      const result = await submitVote(id, choicesToSubmit, user);
+      const result = await submitVote(id, choicesToSubmit, user, updateUserCoins);
   
       if (result.success) {
         setNotification({ show: true, type: 'success', message: 'Yay!!! We received your vote!' });
