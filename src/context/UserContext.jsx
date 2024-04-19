@@ -46,10 +46,10 @@ const UserProvider = ({ children }) => {
       
       if (response.status === 201) {
         // Registration successful
-        const { id, email, name, userRole, token } = response.data;
-        setUser({ id, email, name, userRole });
+        const { id, email, name, userRole, coins, token } = response.data;
+        setUser({ id, email, name, coins, userRole });
         setIsAuthenticated(true);
-        localStorage.setItem('userData', JSON.stringify({ id, email, name, userRole }));
+        localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
         localStorage.setItem('token', token);
       }
     
@@ -69,10 +69,10 @@ const UserProvider = ({ children }) => {
       const response = await axios.post('http://localhost:5000/api/user/login', formData);
       
       if (response.status === 200) {
-        const { id, email, name, userRole, token } = response.data;
-        setUser({ id, email, name, userRole });
+        const { id, email, name, userRole, coins, token } = response.data;
+        setUser({ id, email, name, coins, userRole });
         setIsAuthenticated(true);
-        localStorage.setItem('userData', JSON.stringify({ id, email, name, userRole }));
+        localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
         localStorage.setItem('token', token);
       }
     
@@ -104,7 +104,7 @@ const UserProvider = ({ children }) => {
       setIsAuthenticated(false)
       localStorage.removeItem('userData')
       localStorage.removeItem('token')
-      await axios.post('http://localhost:5000/api/user/logout');
+      await axios.get('http://localhost:5000/api/user/logout');
     }
     catch(error){
       console.log('Something went wrong', error)

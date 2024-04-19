@@ -9,42 +9,28 @@ export const useProductContext = () => useContext(ProductContext);
 
 // ProductContext Provider component
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  // Function to fetch products
-  const getProducts = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('Token not found. User is not logged in.');
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+  
+    const fetchProducts = async (token) => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        const response = await axios.get('http://localhost:5000/api/products', config);
+        setProducts(response.data.products);
         setLoading(false);
-        return;
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setLoading(false);
       }
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      };
-
-      const response = await axios.get('http://localhost:5000/api/products', config);
-      setProducts(response.data.products);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      setLoading(false);
-    }
+    };
+  
+    return (
+      <ProductContext.Provider value={{ products, loading, fetchProducts }}>
+        {children}
+      </ProductContext.Provider>
+    );
   };
-
-  // Fetch products on component mount
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  return (
-    <ProductContext.Provider value={{ products, loading, getProducts }}>
-      {children}
-    </ProductContext.Provider>
-  );
-};

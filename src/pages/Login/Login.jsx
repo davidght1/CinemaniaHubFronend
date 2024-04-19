@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import './Login.css'; // Import CSS file for styling
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const { loginUser,user } = useContext(UserContext);
-  const navigate = useNavigate()
+  const { loginUser, user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -14,25 +14,24 @@ const Login = () => {
 
   const { email, password } = formData;
 
-
-  useEffect(()=>{
-    if(user){
-      navigate('/')
+  useEffect(() => {
+    if (user) {
+      navigate('/');
     }
-  },[user])
+  }, [user, navigate]);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await loginUser(formData);
     if (response.error) {
       setError(response.error);
     } else {
       // Login successful, navigate to the home page
-      navigate('/')
+      navigate('/');
     }
   };
 
@@ -50,8 +49,16 @@ const Login = () => {
             <label>Password:</label>
             <input type="password" name="password" value={password} onChange={handleChange} required />
           </div>
-          <button type="submit" className="login-btn">Login</button>
+          <button type="submit" className="login-btn">
+            Login
+          </button>
         </form>
+        <p className="register-link">
+          You don't have an account? Join us!{' '}
+          <Link to="/register" className="custom-register-btn">
+            Register Here
+          </Link>
+        </p>
       </div>
     </div>
   );

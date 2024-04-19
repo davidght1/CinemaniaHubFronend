@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import './Vote.css'; // Import the updated CSS file
@@ -76,6 +76,13 @@ const Vote = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // Redirect to login if user is not authenticated or does not have the 'user' role
+    if (!user || user.userRole !== 'user') {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   return (
     <div className="vote-container">

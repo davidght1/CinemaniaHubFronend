@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import './Register.css'; // Import CSS file for styling
-import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const { registerUser, user } = useContext(UserContext);
@@ -15,24 +15,24 @@ const Register = () => {
 
   const { name, email, password } = formData;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  useEffect(()=>{
-    if(user){
-      navigate('/')
+  useEffect(() => {
+    if (user) {
+      navigate('/');
     }
-  },[user])
+  }, [user, navigate]);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await registerUser(formData);
     if (response.error) {
       setError(response.error);
     } else {
       // Registration successful, navigate to the home page
-      window.location.href = '/';
+      navigate('/');
     }
   };
 
@@ -56,6 +56,14 @@ const Register = () => {
           </div>
           <button type="submit" className="register-btn">Register</button>
         </form>
+        
+        {/* Display message and link for users who already have an account */}
+        <p className="login-link">
+          Already have an account?{' '}
+          <Link to="/login" className="custom-login-link">
+            Come back to us!
+          </Link>
+        </p>
       </div>
     </div>
   );
