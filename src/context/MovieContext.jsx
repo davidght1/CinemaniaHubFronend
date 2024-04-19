@@ -37,7 +37,7 @@ export const MovieProvider = ({ children }) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        setNotification({ show: true, type: 'error', message: 'Please log in to rate this movie.' });
+        setNotification({ show: true, type: 'error', message: 'Please login to rate this movie.' });
         return;
       }
   
