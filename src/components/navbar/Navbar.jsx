@@ -78,8 +78,8 @@ const Navbar = () => {
               )}
               {user && user.userRole === 'user' && (
                 <li>
-                  <Link to="/product" onClick={closeMenu}>
-                    Product
+                  <Link to="/products" onClick={closeMenu}>
+                    Products
                   </Link>
                 </li>
               )}

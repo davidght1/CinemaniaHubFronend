@@ -9,11 +9,14 @@ import { UserContext, UserProvider } from './context/UserContext';
 import React, { useContext, useEffect } from 'react';
 import SingleMovie from './pages/SingleMovie/SingleMovie';
 import Vote from './pages/Vote/Vote';
+import Products from './pages/products/Products';
+import { ProductProvider } from './context/ProductContext';
 
 function App() {
   return (
     <MovieProvider>
       <UserProvider>
+      <ProductProvider>
         <BrowserRouter>
           <Navbar />
           <div className="content">
@@ -23,9 +26,11 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/single-movie/:id" element={<SingleMovie />} />
               <Route path='/vote/:id' element={<Vote/>}/>
+              <Route path='/products' element={<Products/>}/>
             </Routes>
           </div>
         </BrowserRouter>
+        </ProductProvider>
       </UserProvider>
     </MovieProvider>
   );
