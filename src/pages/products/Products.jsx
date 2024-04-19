@@ -98,7 +98,7 @@ const Product = () => {
             <div key={product._id} className="product-card">
               <img src={product.pictureUrl} alt={product.name} />
               <h3>{product.name}</h3>
-              <p>{product.price}$</p>
+              <p className="price">${product.price}</p>
               <button onClick={() => handleBuyProduct(product._id)}>Buy</button>
               {error && (
                 <div className="notification error">
