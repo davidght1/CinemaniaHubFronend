@@ -128,3 +128,30 @@ h1 {
 .comment-form button:hover {
   background-color: #1976d2;
 }
+
+/* Styling for notifications */
+.notification {
+  padding: 10px 20px;
+  margin-bottom: 10px; /* Add margin bottom to create space below the notification */
+  border-radius: 8px;
+  font-size: 16px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.notification.error {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.notification.success {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.notification.show {
+  opacity: 1;
+}
+
+.notification.hide {
+  opacity: 0;
+}

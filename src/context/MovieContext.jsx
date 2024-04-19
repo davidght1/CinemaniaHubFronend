@@ -33,12 +33,11 @@ export const MovieProvider = ({ children }) => {
   };
 
   // Function to update movie rating
-  const updateRating = async (movieId, rating) => {
+  const updateRating = async (movieId, rating, setMovies, setNotification) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        // Guest user (unauthenticated)
-        alert('Please log in to rate this movie.');
+        setNotification({ show: true, type: 'error', message: 'Please log in to rate this movie.' });
         return;
       }
   
@@ -53,15 +52,17 @@ export const MovieProvider = ({ children }) => {
       );
   
       if (response && response.data) {
-        // Update the movie in the movies state with the updated rating
         setMovies((prevMovies) =>
           prevMovies.map((movie) =>
             movie._id === movieId ? { ...movie, ratings: response.data.ratings } : movie
           )
         );
   
-        // Display success message
-        alert(response.data.message);
+        setNotification({ show: true, type: 'success', message: response.data.message });
+  
+        setTimeout(() => {
+          setNotification({ show: false, type: '', message: '' });
+        }, 5000); // 5000 milliseconds = 5 seconds
       }
     } catch (error) {
       if (
@@ -69,17 +70,21 @@ export const MovieProvider = ({ children }) => {
         error.response.status === 400 &&
         error.response.data.message === 'User has already rated this movie'
       ) {
-        alert('You have already rated this movie.');
+        setNotification({ show: true, type: 'error', message: 'You have already rated this movie.' });
       } else if (
         error.response &&
         error.response.status === 401 &&
         error.response.data.message === 'You do not have permission to get here'
       ) {
-        alert('You do not have permission to rate movies.');
+        setNotification({ show: true, type: 'error', message: 'You do not have permission to rate movies.' });
       } else {
         console.error('Failed to rate the movie:', error);
-        alert('Failed to rate the movie. Please try again.');
+        setNotification({ show: true, type: 'error', message: 'Failed to rate the movie. Please try again.' });
       }
+  
+      setTimeout(() => {
+        setNotification({ show: false, type: '', message: '' });
+      }, 5000); // 5000 milliseconds = 5 seconds
     }
   };
 

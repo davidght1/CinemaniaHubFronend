@@ -11,6 +11,7 @@ const SingleMovie = () => {
   const [movie, setMovie] = useState(null);
   const [commentText, setCommentText] = useState('');
   const { user } = useContext(UserContext);
+  const [notification, setNotification] = useState({ show: false, type: '', message: '' });
 
   // Fetch movie details
   useEffect(() => {
@@ -22,14 +23,18 @@ const SingleMovie = () => {
   }, [id, getSingleMovie]);
 
   // Handle movie rating
-  const handleRateMovie = async (rating) => {
-    try {
-      await updateRating(id, rating, setMovie);
-    } catch (error) {
-      console.error('Error rating movie:', error);
-      alert('Failed to rate the movie. Please try again.');
-    }
-  };
+const handleRateMovie = async (rating) => {
+  try {
+    await updateRating(id, rating, setMovie, setNotification);
+  } catch (error) {
+    console.error('Error rating movie:', error);
+    setNotification({ show: true, type: 'error', message: 'Failed to rate the movie. Please try again.' });
+    
+    setTimeout(() => {
+      setNotification({ show: false, type: '', message: '' });
+    }, 5000); // 5000 milliseconds = 5 seconds
+  }
+};
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
@@ -85,6 +90,11 @@ const SingleMovie = () => {
               )
             )}
           </div>
+          {notification.show && (
+            <div className={`notification ${notification.type}`}>
+              <p>{notification.message}</p>
+            </div>
+          )}
 
           {/* Display vote button conditionally */}
           {user && user.userRole === 'user' && (
