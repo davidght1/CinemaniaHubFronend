@@ -144,9 +144,6 @@ export const MovieProvider = ({ children }) => {
           alert('Please log in to post a comment.');
           return;
         }
-        
-        console.log(content)
-        console.log(movieId)
 
         const response = await axios.patch(
           `http://localhost:5000/api/movie/commends/${movieId}`,
@@ -158,10 +155,6 @@ export const MovieProvider = ({ children }) => {
           }
         );
         
-        // depends if we want to alert user his post 
-        // if (response && response.data) {
-        //   alert(response.data.message);
-        // }
       } catch (error) {
         console.error('Error posting comment:', error);
         alert('Failed to post comment. Please try again.');

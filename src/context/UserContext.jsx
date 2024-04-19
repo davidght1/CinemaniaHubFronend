@@ -4,17 +4,20 @@ import axios from 'axios';
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem('userData');
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
-  const [isAuthenticated, setIsAuthenticated] = useState(!!user);
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [tokenIntervalId, setTokenIntervalId] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('userData');
+
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const userData = JSON.parse(storedUser);
+      setUser(userData);
       setIsAuthenticated(true);
+
+      // Start token expiration check immediately on initial login
+      startTokenExpirationCheck(userData.token);
     } else {
       setUser(null);
       setIsAuthenticated(false);
@@ -30,6 +33,9 @@ const UserProvider = ({ children }) => {
         setUser(userData);
         setIsAuthenticated(true);
         localStorage.setItem('userData', JSON.stringify(userData));
+
+        // Start or restart token expiration check on successful login
+        startTokenExpirationCheck(userData.token);
       }
 
       return response.data;
@@ -45,6 +51,10 @@ const UserProvider = ({ children }) => {
       setUser(null);
       setIsAuthenticated(false);
       localStorage.removeItem('userData');
+
+      // Stop token expiration check on logout
+      clearInterval(tokenIntervalId);
+      setTokenIntervalId(null);
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -58,6 +68,29 @@ const UserProvider = ({ children }) => {
     } catch (error) {
       console.error('Failed to update user coins:', error);
     }
+  };
+
+  const startTokenExpirationCheck = (token) => {
+    // Clear previous interval if exists
+    clearInterval(tokenIntervalId);
+
+    // Start new interval to check token expiration every minute
+    const intervalId = setInterval(() => {
+      if (token) {
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        const expirationTime = tokenData.exp * 1000;
+        const currentTime = Date.now();
+
+        if (currentTime > expirationTime) {
+          // Token is expired, log out the user
+          clearInterval(intervalId); // Stop further checks
+          logoutUser();
+        }
+      }
+    }, 60000); // Check every minute (60000 milliseconds)
+
+    // Save the intervalId in state for cleanup
+    setTokenIntervalId(intervalId);
   };
 
   return (
