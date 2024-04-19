@@ -28,7 +28,9 @@ const Product = () => {
       <h2 className="page-title">All Products</h2>
       {/* Display user's available coins if user is logged in */}
       {user && (
-        <p className="coins-info">You have {user.coins} available coins</p>
+        <p className="coins-info">
+          You have <span className="coins-count">{user.coins}$</span> available
+        </p>
       )}
 
       {loading ? (

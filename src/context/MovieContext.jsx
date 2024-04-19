@@ -78,7 +78,6 @@ export const MovieProvider = ({ children }) => {
       ) {
         setNotification({ show: true, type: 'error', message: 'You do not have permission to rate movies.' });
       } else {
-        console.error('Failed to rate the movie:', error);
         setNotification({ show: true, type: 'error', message: 'Failed to rate the movie. Please try again.' });
       }
   
