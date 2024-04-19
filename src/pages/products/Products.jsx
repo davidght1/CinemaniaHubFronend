@@ -12,6 +12,7 @@ const Product = () => {
   const [showCouponPopup, setShowCouponPopup] = useState(false);
   const [coupon, setCoupon] = useState('');
   const [error, setError] = useState('');
+  const [showExitConfirmation, setShowExitConfirmation] = useState(false);
 
   useEffect(() => {
     if (!user || user.userRole !== 'user') {
@@ -55,9 +56,29 @@ const Product = () => {
   };
 
   const handleExitPopup = () => {
-    setShowCouponPopup(false);
-    setCoupon('');
-    setError('');
+    if (showExitConfirmation) {
+      // Exit the coupon popup and clear all states
+      setShowCouponPopup(false);
+      setCoupon('');
+      setError('');
+      setShowExitConfirmation(false);
+    } else {
+      // Show exit confirmation dialog
+      setShowExitConfirmation(true);
+    }
+  };
+
+  const handleConfirmExit = (confirmed) => {
+    if (confirmed) {
+      // User confirmed to exit, clear coupon popup and states
+      setShowCouponPopup(false);
+      setCoupon('');
+      setError('');
+      setShowExitConfirmation(false);
+    } else {
+      // User canceled exit, close the confirmation dialog
+      setShowExitConfirmation(false);
+    }
   };
 
   return (
@@ -97,6 +118,14 @@ const Product = () => {
           <button onClick={handleExitPopup}>Exit</button>
         </div>
       )}
+
+        {showExitConfirmation && (
+        <div className="exit-confirmation">
+            <p>Are you sure you want to exit from the coupon message?</p>
+            <button className="yes" onClick={() => handleConfirmExit(true)}>Yes, Exit</button>
+            <button className="no" onClick={() => handleConfirmExit(false)}>No, i didn't save the coupon </button>
+        </div>
+        )}
     </div>
   );
 };
