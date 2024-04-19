@@ -6,41 +6,46 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [tokenIntervalId, setTokenIntervalId] = useState(null);
+
+  const checkTokenExpiration = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const tokenData = JSON.parse(atob(token.split('.')[1]));
+      const expirationTime = tokenData.exp * 1000;
+      const currentTime = Date.now();
+      if (currentTime > expirationTime) {
+        // Token is expired, perform logout
+        logoutUser();
+      }
+    }
+  };
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('userData');
-
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      setUser(userData);
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      setUser(JSON.parse(userData));
       setIsAuthenticated(true);
-
-      // Start token expiration check immediately on initial login
-      startTokenExpirationCheck(userData.token);
-    } else {
-      setUser(null);
-      setIsAuthenticated(false);
     }
+
+    // Check token expiration every minute
+    const interval = setInterval(checkTokenExpiration, 60000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   const loginUser = async (formData) => {
     try {
       const response = await axios.post('http://localhost:5000/api/user/login', formData);
-
       if (response.status === 200) {
-        const userData = response.data;
-        setUser(userData);
+        const { id, email, name, userRole, coins, token } = response.data;
+        setUser({ id, email, name, coins, userRole });
         setIsAuthenticated(true);
-        localStorage.setItem('userData', JSON.stringify(userData));
-
-        // Start or restart token expiration check on successful login
-        startTokenExpirationCheck(userData.token);
+        localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
+        localStorage.setItem('token', token);
       }
-
       return response.data;
     } catch (error) {
-      console.error('Login failed:', error);
       return { error: 'Login failed. Please try again.' };
     }
   };
@@ -48,54 +53,52 @@ const UserProvider = ({ children }) => {
   const logoutUser = async () => {
     try {
       await axios.get('http://localhost:5000/api/user/logout');
-      setUser(null);
-      setIsAuthenticated(false);
-      localStorage.removeItem('userData');
-
-      // Stop token expiration check on logout
-      clearInterval(tokenIntervalId);
-      setTokenIntervalId(null);
     } catch (error) {
       console.error('Logout failed:', error);
+    }
+    setUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem('userData');
+    localStorage.removeItem('token');
+  };
+
+  const registerUser = async (formData) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/register', formData);
+      if (response.status === 201) {
+        const { id, email, name, userRole, coins, token } = response.data;
+        setUser({ id, email, name, coins, userRole });
+        setIsAuthenticated(true);
+        localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
+        localStorage.setItem('token', token);
+      }
+      return response.data;
+    } catch (error) {
+      return { error: 'Registration failed. Please try again.' };
     }
   };
 
   const updateUserCoins = async (newCoins) => {
     try {
-      const updatedUser = { ...user, coins: newCoins };
-      setUser(updatedUser);
-      localStorage.setItem('userData', JSON.stringify(updatedUser));
+      setUser((prevUser) => ({ ...prevUser, coins: newCoins }));
+      localStorage.setItem('userData', JSON.stringify({ ...user, coins: newCoins }));
     } catch (error) {
       console.error('Failed to update user coins:', error);
     }
   };
 
-  const startTokenExpirationCheck = (token) => {
-    // Clear previous interval if exists
-    clearInterval(tokenIntervalId);
-
-    // Start new interval to check token expiration every minute
-    const intervalId = setInterval(() => {
-      if (token) {
-        const tokenData = JSON.parse(atob(token.split('.')[1]));
-        const expirationTime = tokenData.exp * 1000;
-        const currentTime = Date.now();
-
-        if (currentTime > expirationTime) {
-          // Token is expired, log out the user
-          clearInterval(intervalId); // Stop further checks
-          logoutUser();
-        }
-      }
-    }, 60000); // Check every minute (60000 milliseconds)
-
-    // Save the intervalId in state for cleanup
-    setTokenIntervalId(intervalId);
+  const getUserDetails = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/user/getUserDetails/${userId}`);
+      return response.data; // Assuming response.data contains user details
+    } catch (error) {
+      return null;
+    }
   };
 
   return (
     <UserContext.Provider
-      value={{ user, isAuthenticated, loginUser, logoutUser, updateUserCoins }}
+      value={{ user, isAuthenticated, loginUser, logoutUser, registerUser, updateUserCoins, getUserDetails }}
     >
       {children}
     </UserContext.Provider>
