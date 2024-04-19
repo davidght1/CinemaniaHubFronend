@@ -33,7 +33,7 @@ export const MovieProvider = ({ children }) => {
   };
 
   // Function to update movie rating
-  const updateRating = async (movieId, rating, setMovies, setNotification) => {
+  const updateRating = async (movieId, rating, setNotification, setMovie, getSingleMovie) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -51,41 +51,39 @@ export const MovieProvider = ({ children }) => {
         }
       );
   
-      if (response && response.data) {
-        setMovies((prevMovies) =>
-          prevMovies.map((movie) =>
-            movie._id === movieId ? { ...movie, ratings: response.data.ratings } : movie
-          )
-        );
+      if (response && response.status === 200) {
+        // Update the movie details after successful rating update
+        const updatedMovie = await getSingleMovie(movieId);
+        setMovie(updatedMovie);
   
-        setNotification({ show: true, type: 'success', message: response.data.message });
+        setNotification({ show: true, type: 'success', message: 'Your rating has been updated.' });
   
         setTimeout(() => {
           setNotification({ show: false, type: '', message: '' });
-        }, 5000); // 5000 milliseconds = 5 seconds
+        }, 5000); // Clear notification after 5 seconds
       }
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status === 400 &&
-        error.response.data.message === 'User has already rated this movie'
-      ) {
-        setNotification({ show: true, type: 'error', message: 'You have already rated this movie.' });
-      } else if (
-        error.response &&
-        error.response.status === 401 &&
-        error.response.data.message === 'You do not have permission to get here'
-      ) {
-        setNotification({ show: true, type: 'error', message: 'You do not have permission to rate movies.' });
+      if (error.response) {
+        const { status, data } = error.response;
+        if (status === 400 && data.message === 'User has already rated this movie') {
+          setNotification({ show: true, type: 'error', message: 'You have already rated this movie.' });
+        } else if (status === 401 && data.message === 'You do not have permission to rate movies.') {
+          setNotification({ show: true, type: 'error', message: 'You do not have permission to rate movies.' });
+        } else {
+          setNotification({ show: true, type: 'error', message: 'Failed to rate the movie. Please try again.' });
+        }
       } else {
         setNotification({ show: true, type: 'error', message: 'Failed to rate the movie. Please try again.' });
       }
   
       setTimeout(() => {
         setNotification({ show: false, type: '', message: '' });
-      }, 5000); // 5000 milliseconds = 5 seconds
+      }, 5000); // Clear notification after 5 seconds
     }
   };
+  
+  
+  
 
   // Function to refetch all movies
   const getMovies = async () => {

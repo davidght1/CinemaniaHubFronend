@@ -23,18 +23,18 @@ const SingleMovie = () => {
   }, [id, getSingleMovie]);
 
   // Handle movie rating
-const handleRateMovie = async (rating) => {
-  try {
-    await updateRating(id, rating, setMovie, setNotification);
-  } catch (error) {
-    console.error('Error rating movie:', error);
-    setNotification({ show: true, type: 'error', message: 'Failed to rate the movie. Please try again.' });
-    
-    setTimeout(() => {
-      setNotification({ show: false, type: '', message: '' });
-    }, 5000); // 5000 milliseconds = 5 seconds
-  }
-};
+  const handleRateMovie = async (rating) => {
+    try {
+      await updateRating(id, rating, setNotification, setMovie, getSingleMovie);
+    } catch (error) {
+      console.error('Error rating movie:', error);
+      setNotification({ show: true, type: 'error', message: 'Failed to rate the movie. Please try again.' });
+  
+      setTimeout(() => {
+        setNotification({ show: false, type: '', message: '' });
+      }, 5000); // Clear notification after 5 seconds
+    }
+  };
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
@@ -99,7 +99,7 @@ const handleRateMovie = async (rating) => {
           {/* Display vote button conditionally */}
           {user && user.userRole === 'user' && (
             <Link to={`/vote/${id}`} className="vote-button-single">
-              Vote
+              Vote to earn credit
             </Link>
           )}
 
