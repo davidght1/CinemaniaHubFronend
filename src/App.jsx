@@ -11,6 +11,7 @@ import SingleMovie from './pages/SingleMovie/SingleMovie';
 import Vote from './pages/Vote/Vote';
 import Products from './pages/products/Products';
 import { ProductProvider } from './context/ProductContext';
+import CreateMovie from './pages/CreateMovie/CreateMovie';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/single-movie/:id" element={<SingleMovie />} />
               <Route path='/vote/:id' element={<Vote/>}/>
               <Route path='/products' element={<Products/>}/>
+              <Route path='/create-movie' element={<CreateMovie/>}/>
             </Routes>
           </div>
         </BrowserRouter>
