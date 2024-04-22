@@ -58,10 +58,10 @@ const CreateMovie = () => {
         setGenre('');
         setPhoto(null);
 
-        // Navigate to home page after 5 seconds
+        // Navigate to home page after 3 seconds
         setTimeout(() => {
           navigate('/');
-        }, 5000);
+        }, 3000);
       }
     } catch (error) {
       setMessage('Failed to create movie. Please try again.');
