@@ -12,6 +12,7 @@ import Vote from './pages/Vote/Vote';
 import Products from './pages/products/Products';
 import { ProductProvider } from './context/ProductContext';
 import CreateMovie from './pages/CreateMovie/CreateMovie';
+import CreateProduct from './pages/CreateProduct/CreateProduct';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path='/vote/:id' element={<Vote/>}/>
               <Route path='/products' element={<Products/>}/>
               <Route path='/create-movie' element={<CreateMovie/>}/>
+              <Route path='/create-product' element={<CreateProduct/>}/>
             </Routes>
           </div>
         </BrowserRouter>
