@@ -1,182 +1,191 @@
 /* Products.css */
 
+/* General Container Styling */
 .products-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .coins-info {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #333;
-    border: 2px solid #0066cc;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #f8f8f8;
-  }
-  
-  .coins-info .coins-count {
-    font-weight: bold;
-    color: #0066cc;
-  }
-  
-  .products-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .product-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .product-card h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  .product-card p {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .notification {
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 8px;
-  }
-  
-  .notification.error {
-    background-color: #f2dede;
-    color: #a94442;
-    border: 1px solid #ebccd1;
-    margin-top: 10px;
-  }
-  
-  .product-card button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .product-card button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Styling for Coupon Popup */
-  .coupon-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-  }
-  
-  .coupon-popup h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .coupon-popup p {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 15px;
-  }
-  
-  .coupon-popup .coupon-number {
-    font-size: 20px;
-    font-weight: bold;
-    color: #007bff;
-    margin-bottom: 20px;
-  }
-  
-  .coupon-popup button {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .coupon-popup button:hover {
-    background-color: #0056b3;
-  }
-  
-  .exit-confirmation {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-  }
-  
-  .exit-confirmation p {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 15px;
-  }
-  
-  .exit-confirmation button {
-    display: inline-block;
-    width: 150px;
-    padding: 12px;
-    font-size: 16px;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .exit-confirmation button.yes {
-    background-color: #007bff;
-    margin-right: 10px; /* Add margin-right to space buttons */
-  }
-  
-  .exit-confirmation button.no {
-    background-color: #dc3545;
-  }
-  
-  .exit-confirmation button:hover {
-    opacity: 0.8;
-  }
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+}
 
-  .product-card p.price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #000000;
-    margin-bottom: 10px;
-  }
+.coins-info {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  border: 2px solid #0066cc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f8f8f8;
+}
+
+.coins-info .coins-count {
+  font-weight: bold;
+  color: #0066cc;
+}
+
+/* Products List Styling */
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.product-card img {
+  width: 100%;
+  height: 150px; /* Fixed height to maintain consistent size */
+  object-fit: cover; /* Maintain aspect ratio */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.product-card-content {
+  padding: 10px;
+}
+
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.product-card p {
+  font-size: 16px;
+  color: #555;
+}
+
+.notification {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.notification.error {
+  background-color: #f2dede;
+  color: #a94442;
+  border: 1px solid #ebccd1;
+  margin-top: 10px;
+}
+
+.product-card button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for Coupon Popup */
+.coupon-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.coupon-popup h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.coupon-popup p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.coupon-popup .coupon-number {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.coupon-popup button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.coupon-popup button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for Exit Confirmation Popup */
+.exit-confirmation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.exit-confirmation p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.exit-confirmation button {
+  display: inline-block;
+  width: 150px;
+  padding: 12px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.exit-confirmation button.yes {
+  background-color: #007bff;
+  margin-right: 10px; /* Add margin-right to space buttons */
+}
+
+.exit-confirmation button.no {
+  background-color: #dc3545;
+}
+
+.exit-confirmation button:hover {
+  opacity: 0.8;
+}
+
+/* Additional Styling for Price in Product Card */
+.product-card p.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 10px;
+}

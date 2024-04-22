@@ -43,19 +43,19 @@ const Product = () => {
         const { error } = result;
         setError(error);
 
-        // Clear the error message after 8 seconds
+        // Clear the error message after 5 seconds
         setTimeout(() => {
           setError('');
-        }, 8000);
+        }, 5000);
       }
     } catch (error) {
       console.error('Error buying product:', error);
       setError('Failed to buy product. Please try again.');
 
-      // Clear the error message after 8 seconds
+      // Clear the error message after 5 seconds
       setTimeout(() => {
         setError('');
-      }, 8000);
+      }, 5000);
     }
   };
 
@@ -87,50 +87,51 @@ const Product = () => {
 
   return (
     <div className="products-container">
-      <h2 className="page-title">All Products</h2>
-      {user && (
-        <p className="coins-info">
-          You have <span className="coins-count">{user.coins}$</span> available
-        </p>
-      )}
+    <h2 className="page-title">All Products</h2>
+    {user && (
+      <p className="coins-info">
+        You have <span className="coins-count">{user.coins}$</span> available
+      </p>
+    )}
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="products-list">
-          {products.map((product) => (
-            <div key={product._id} className="product-card">
-              <img src={product.pictureUrl} alt={product.name} />
-              <h3>{product.name}</h3>
-              <p className="price">{product.price}$</p>
-              <button onClick={() => handleBuyProduct(product._id)}>Buy</button>
-              {error && (
-                <div className="notification error">
-                  {error}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+    {error && (
+      <div className="notification error">
+        {error}
+      </div>
+    )}
 
-      {showCouponPopup && (
-        <div className="coupon-popup">
-          <h3>Coupon Number</h3>
-          <p>Please take your time to save this coupon number for later use:</p>
-          <p className="coupon-number">{coupon}</p>
-          <button onClick={handleExitPopup}>Exit</button>
-        </div>
-      )}
+    {loading ? (
+      <p>Loading...</p>
+    ) : (
+      <div className="products-list">
+        {products.map((product) => (
+          <div key={product._id} className="product-card">
+            <img src={product.pictureUrl} alt={product.name} />
+            <h3>{product.name}</h3>
+            <p className="price">{product.price}$</p>
+            <button onClick={() => handleBuyProduct(product._id)}>Buy</button>
+          </div>
+        ))}
+      </div>
+    )}
 
-        {showExitConfirmation && (
-        <div className="exit-confirmation">
-            <p>Are you sure you want to exit from the coupon message?</p>
-            <button className="yes" onClick={() => handleConfirmExit(true)}>Yes, Exit</button>
-            <button className="no" onClick={() => handleConfirmExit(false)}>No, i didn't save the coupon </button>
-        </div>
-        )}
-    </div>
+    {showCouponPopup && (
+      <div className="coupon-popup">
+        <h3>Coupon Number</h3>
+        <p>Please take your time to save this coupon number for later use:</p>
+        <p className="coupon-number">{coupon}</p>
+        <button onClick={handleExitPopup}>Exit</button>
+      </div>
+    )}
+
+    {showExitConfirmation && (
+      <div className="exit-confirmation">
+        <p>Are you sure you want to exit from the coupon message?</p>
+        <button className="yes" onClick={() => handleExitPopup()}>Yes, Exit</button>
+        <button className="no" onClick={() => setShowExitConfirmation(false)}>No, I didn't save the coupon</button>
+      </div>
+    )}
+  </div>
   );
 };
 
