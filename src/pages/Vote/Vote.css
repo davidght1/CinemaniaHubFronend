@@ -101,3 +101,38 @@
 .notification button:hover {
   background-color: #e0e0e0;
 }
+
+/* Vote.css */
+
+/* Styling for the back button */
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  background-color: #007bff; /* Blue color for the background */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+
+  /* Center align text and button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling for the back button on hover */
+.back-button:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
+/* Optional: Add additional styles for responsiveness */
+@media (max-width: 768px) {
+  .back-button {
+    font-size: 14px; /* Adjust font size for smaller screens */
+    padding: 8px 16px; /* Adjust padding for smaller screens */
+  }
+}

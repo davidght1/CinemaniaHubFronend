@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './Vote.css'; // Import the updated CSS file
 import { useMovieContext } from '../../context/MovieContext'; // Import MovieContext
 
@@ -86,7 +86,10 @@ const Vote = () => {
 
   return (
     <div className="vote-container">
-      <h2 className="vote-heading">Vote for the Movie</h2>
+      <Link to={`/single-movie/${id}`} className="back-button">
+        Go Back
+      </Link>
+      <h2 className="vote-heading">Let's Vote to earn some credits</h2>
       <div className="choice-container">
         {availableChoices.map((choice) => (
           <div key={choice} className="choice-label" onClick={() => handleSelectChoice(choice)}>

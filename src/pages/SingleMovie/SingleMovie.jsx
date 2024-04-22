@@ -73,6 +73,9 @@ const SingleMovie = () => {
 
   return (
     <div className="single-movie-container">
+      <Link to="/" className="home-button">
+        Back to the Home page
+      </Link>
       {movie ? (
         <>
           <h1>{movie.title}</h1>
