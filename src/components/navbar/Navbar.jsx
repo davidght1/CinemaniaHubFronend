@@ -63,11 +63,18 @@ const Navbar = () => {
           ) : (
             <>
               {user && user.userRole === 'admin' && (
+                <>
                 <li>
                   <Link to="/add-movie" onClick={closeMenu}>
                     Add Movie
                   </Link>
                 </li>
+                <li>
+                  <Link to="/create-product" onClick={closeMenu}>
+                    Create Product
+                  </Link>
+                </li>
+              </>
               )}
               {user && user.userRole === 'cinemaowner' && (
                 <li>
