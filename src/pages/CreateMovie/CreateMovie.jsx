@@ -89,10 +89,10 @@ const CreateMovie = () => {
           <option value="Comedy">Comedy</option>
           <option value="Drama">Drama</option>
           <option value="Docu">Documentary</option>
-          <option value="ScienceFiction">Science Fiction</option>
+          <option value="Science Fiction">Science Fiction</option>
           <option value="Action">Action</option>
-          <option value="FamilyFilm">Family Film</option>
-          <option value="NotForChildren">Not for Children</option>
+          <option value="Family Film">Family Film</option>
+          <option value="Not For Children">Not for Children</option>
         </select>
       </div>
       <div className="form-group">
