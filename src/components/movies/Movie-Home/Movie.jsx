@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './Movie.css'; 
 import { UserContext } from '../../../context/UserContext';
+import { useMovieContext } from '../../../context/MovieContext';
 import { FaRegTrashCan } from "react-icons/fa6";
 import { RiUpload2Line } from 'react-icons/ri';
 import { FaEye } from 'react-icons/fa';
@@ -8,7 +9,10 @@ import { Link } from 'react-router-dom';
 
 const Movie = ({ movie }) => {
   const { user } = useContext(UserContext);
+  const {deleteMovie} = useMovieContext();
   const userRole = user && user.userRole;
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [message, setMessage] = useState('');
 
   const numberOfRatings = movie.ratings ? movie.ratings.length : 0;
 
@@ -42,6 +46,29 @@ const Movie = ({ movie }) => {
     return stars;
   };
 
+  // Function to handle movie deletion
+  const handleDeleteMovie = async () => {
+    setShowConfirmation(false); // Close confirmation dialog
+
+    try {
+      const response = await deleteMovie(movie._id);
+      if (response && response.status === 200) {
+        setMessage('Movie deleted successfully');
+        setTimeout(() => {
+          setMessage('');
+        }, 5000);
+      } else {
+        throw new Error('Failed to delete movie');
+      }
+    } catch (error) {
+      console.error('Error deleting movie:', error);
+      setMessage('Ops! Something went wrong. Please try again later.');
+      setTimeout(() => {
+        setMessage('');
+      }, 5000);
+    }
+  };
+
   return (
     <div className="movie-card">
       <img className="movie-poster" src={movie.pictureUrl} alt={movie.title} />
@@ -51,11 +78,11 @@ const Movie = ({ movie }) => {
         <div className="movie-rating">
           <span className="rating-text">Rating:</span>
           <div className="rating-stars">{renderStars()}</div>
-          <span className="rating-count">Users rate this movie:{numberOfRatings}</span>
+          <span className="rating-count">Users rate this movie: {numberOfRatings}</span>
         </div>
         {userRole === 'admin' && (
           <div className="admin-actions">
-            <FaRegTrashCan />
+            <FaRegTrashCan onClick={() => setShowConfirmation(true)} />
             <RiUpload2Line />
           </div>
         )}
@@ -63,6 +90,22 @@ const Movie = ({ movie }) => {
           <FaEye />
         </Link>
       </div>
+
+      {/* Confirmation dialog */}
+      {showConfirmation && (
+        <div className="confirmation-dialog">
+          <p>Are you sure you want to delete the movie?</p>
+          <button onClick={handleDeleteMovie}>Yes</button>
+          <button onClick={() => setShowConfirmation(false)}>No</button>
+        </div>
+      )}
+
+      {/* Display success or error message */}
+      {message && (
+        <div className={`message ${message.includes('successfully') ? 'success' : 'error'}`}>
+          <p>{message}</p>
+        </div>
+      )}
     </div>
   );
 };

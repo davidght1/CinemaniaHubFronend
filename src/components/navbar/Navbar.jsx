@@ -65,8 +65,8 @@ const Navbar = () => {
               {user && user.userRole === 'admin' && (
                 <>
                 <li>
-                  <Link to="/add-movie" onClick={closeMenu}>
-                    Add Movie
+                  <Link to="/create-movie" onClick={closeMenu}>
+                    Create Movie
                   </Link>
                 </li>
                 <li>

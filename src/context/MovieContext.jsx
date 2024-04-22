@@ -165,9 +165,37 @@ export const MovieProvider = ({ children }) => {
     };
 
 
+    // Function to delete a movie
+  const deleteMovie = async (movieId) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      const response = await axios.delete(`http://localhost:5000/api/movie/delete/${movieId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        // Movie deleted successfully
+        fetchMovies(); // Refetch movies after deletion
+        return true;
+      } else {
+        throw new Error('Failed to delete movie');
+      }
+    } catch (error) {
+      console.error('Error deleting movie:', error);
+      return false;
+    }
+  };
+
+
 
   return (
-    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies,submitVote, postComment }}>
+    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies,submitVote, postComment, deleteMovie }}>
       {children}
     </MovieContext.Provider>
   );
