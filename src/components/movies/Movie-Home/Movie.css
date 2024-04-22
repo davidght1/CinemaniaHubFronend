@@ -18,11 +18,11 @@
 
 /* Movie poster image */
 .movie-card img {
-  width: 100%;
-  height: auto;
-  border-top-left-radius: 10px; /* Add rounded corners to the image */
-  border-top-right-radius: 10px;
+  width: 100%; /* Ensure the image width covers the entire container */
+  height: 150px; /* Set a fixed height for the image */
   object-fit: cover; /* Ensure the image covers the entire container */
+  border-top-left-radius: 10px; /* Add rounded corners to the top-left of the image */
+  border-top-right-radius: 10px; /* Add rounded corners to the top-right of the image */
 }
 
 /* Details section of the movie card */
