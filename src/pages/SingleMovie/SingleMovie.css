@@ -37,11 +37,11 @@ h1 {
 }
 
 .movie-image {
-  max-width: 100%;
-  height: auto;
+  width: 100%; /* Ensure the image width covers the entire container */
+  height: 450px; /* Set a fixed height for all images */
+  object-fit: fill; /* Scale the image while preserving aspect ratio */
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-height: 400px;
 }
 
 .user-posts {
