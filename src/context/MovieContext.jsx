@@ -192,10 +192,57 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
+    // Function to update a movie
+const updateMovie = async (movieId, updatedData, fetchMovies, setNotification, navigate) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Authentication token not found');
+    }
+
+    const formData = new FormData();
+    formData.append('title', updatedData.title);
+    formData.append('description', updatedData.description);
+    formData.append('genre', updatedData.genre);
+    if (updatedData.photo) {
+      formData.append('photo', updatedData.photo);
+    }
+
+    const response = await axios.patch(`http://localhost:5000/api/movie/update/${movieId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Check response status
+    if (response.status === 201) {
+      // Display success notification
+      setNotification({ show: true, type: 'success', message: 'Movie updated successfully!' });
+      setTimeout(() => {
+        setNotification({ show: false, type: '', message: '' });
+      }, 3000); // Clear notification after 3 seconds
+
+      return response;
+    } else {
+      // Handle unexpected response status (e.g., 400 Bad Request)
+      throw new Error('Failed to update movie');
+    }
+  } catch (error) {
+    console.error('Error updating movie:', error);
+    // Handle error
+    setNotification({ show: true, type: 'error', message: 'Ops something went wrong :( Please try again later.' });
+    setTimeout(() => {
+      setNotification({ show: false, type: '', message: '' });
+    }, 3000); // Clear notification after 3 seconds
+  }
+};
+
+
 
 
   return (
-    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies,submitVote, postComment, deleteMovie }}>
+    <MovieContext.Provider value={{ movies, getSingleMovie, updateRating, getMovies,submitVote, postComment, deleteMovie, updateMovie }}>
       {children}
     </MovieContext.Provider>
   );

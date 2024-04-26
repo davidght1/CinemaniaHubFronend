@@ -83,7 +83,9 @@ const Movie = ({ movie }) => {
         {userRole === 'admin' && (
           <div className="admin-actions">
             <FaRegTrashCan onClick={() => setShowConfirmation(true)} />
+            <Link to={`/update-movie/${movie._id}`}>
             <RiUpload2Line />
+            </Link>
           </div>
         )}
         <Link to={`/single-movie/${movie._id}`} className="eye-icon">
