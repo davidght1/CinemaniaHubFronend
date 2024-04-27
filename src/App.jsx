@@ -14,6 +14,7 @@ import { ProductProvider } from './context/ProductContext';
 import CreateMovie from './pages/CreateMovie/CreateMovie';
 import CreateProduct from './pages/CreateProduct/CreateProduct';
 import UpdateMovie from './pages/UpdateMovie/UpdateMovie';
+import MovieStats from './pages/MovieStats/MovieStats';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path='/create-movie' element={<CreateMovie/>}/>
               <Route path='/create-product' element={<CreateProduct/>}/>
               <Route path='/update-movie/:id' element={<UpdateMovie/>}/>
+              <Route path='/movie-stats' element={<MovieStats/>}/>
             </Routes>
           </div>
         </BrowserRouter>

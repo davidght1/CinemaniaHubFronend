@@ -1,0 +1,56 @@
+/* MovieStats component styles */
+.movie-stats-container {
+    max-width: 1000px; /* Increase max-width for a wider container */
+    margin: 60px auto 0; /* Set top margin to 20px, center horizontally */
+    padding: 40px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .chart-container {
+    margin-top: 30px;
+  }
+  
+  .chart-description {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  .chart-description p {
+    font-weight: bold;
+    font-size: 20px; /* Larger font size for descriptive paragraphs */
+  }
+  
+  .blue-chart {
+    color: rgba(75, 192, 192, 1);
+  }
+  
+  .red-chart {
+    color: rgba(255, 99, 132, 1);
+  }
+  
+  h2 {
+    font-size: 32px; /* Larger font size for section headings */
+  }
+  
+  /* Adjust chart canvas size */
+  .chart-container canvas {
+    width: 100% !important; /* Ensure chart canvas fills the container width */
+    height: 60vh !important; /* Set chart canvas height using viewport height units */
+    position: relative;
+  }
+  
+  /* Media query for smaller screens */
+  @media only screen and (max-width: 768px) {
+    .movie-stats-container {
+      padding: 20px; /* Adjust padding for smaller screens */
+    }
+  
+    .chart-container canvas {
+      height: 40vh !important; /* Reduce chart canvas height for smaller screens */
+    }
+  }
+  
