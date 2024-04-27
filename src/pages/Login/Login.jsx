@@ -28,7 +28,7 @@ const Login = () => {
     e.preventDefault();
     const response = await loginUser(formData);
     if (response.error) {
-      setError(response.error);
+      setError("incorrect email or password. please try again.");
     } else {
       // Login successful, navigate to the home page
       navigate('/');
@@ -39,7 +39,7 @@ const Login = () => {
     <div className="login-wrapper">
       <div className="login-container">
         <h2>Login</h2>
-        {error && <p className="error-message">{error}</p>}
+        
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <label>Email:</label>
@@ -49,6 +49,7 @@ const Login = () => {
             <label>Password:</label>
             <input type="password" name="password" value={password} onChange={handleChange} required />
           </div>
+          {error && <p className="error-message">{error}</p>}
           <button type="submit" className="login-btn">
             Login
           </button>
