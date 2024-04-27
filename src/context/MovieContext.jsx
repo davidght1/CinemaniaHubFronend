@@ -88,7 +88,7 @@ export const MovieProvider = ({ children }) => {
   // Function to refetch all movies
   const getMovies = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/movie');
+      const response = await axios.get('https://cinemaniahub.onrender.com/api/movie');
       setMovies(response.data.data);
     } catch (error) {
       console.error('Error fetching movies:', error);
@@ -149,7 +149,7 @@ export const MovieProvider = ({ children }) => {
         }
 
         const response = await axios.patch(
-          `http://localhost:5000/api/movie/commends/${movieId}`,
+          `https://cinemaniahub.onrender.com/api/movie/commends/${movieId}`,
           { content },
           {
             headers: {
