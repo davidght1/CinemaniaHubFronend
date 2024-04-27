@@ -43,7 +43,7 @@ const CreateMovie = () => {
       }
 
       // API request to create movie
-      const response = await axios.post('http://localhost:5000/api/movie', formData, {
+      const response = await axios.post('https://cinemaniahub.onrender.com/api/movie', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`, // Append token to Authorization header

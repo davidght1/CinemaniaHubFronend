@@ -32,7 +32,7 @@ const MovieStats = () => {
           console.error('Token not found in local storage');
           return;
         }
-        const response = await axios.get('http://localhost:5000/api/movie/details', {
+        const response = await axios.get('https://cinemaniahub.onrender.com/api/movie/details', {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },

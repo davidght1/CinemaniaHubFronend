@@ -9,7 +9,7 @@ export const MovieProvider = ({ children }) => {
   // Function to fetch all movies
   const fetchMovies = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/movie');
+      const response = await axios.get('https://cinemaniahub.onrender.com/api/movie');
       setMovies(response.data.data);
     } catch (error) {
       console.error('Error fetching movies:', error);
@@ -24,7 +24,7 @@ export const MovieProvider = ({ children }) => {
   // Function to get a single movie by ID
   const getSingleMovie = async (movieId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/movie/getOne/${movieId}`);
+      const response = await axios.get(`https://cinemaniahub.onrender.com/api/movie/getOne/${movieId}`);
       return response.data.data;
     } catch (error) {
       console.error('Error fetching single movie:', error);
@@ -42,7 +42,7 @@ export const MovieProvider = ({ children }) => {
       }
   
       const response = await axios.patch(
-        `http://localhost:5000/api/movie/rate/${movieId}`,
+        `https://cinemaniahub.onrender.com/api/movie/rate/${movieId}`,
         { rating },
         {
           headers: {
@@ -106,7 +106,7 @@ export const MovieProvider = ({ children }) => {
         throw new Error('Authentication token not found');
       }
   
-      const response = await fetch(`http://localhost:5000/api/movie/vote/${movieId}`, {
+      const response = await fetch(`https://cinemaniahub.onrender.com/api/movie/vote/${movieId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ export const MovieProvider = ({ children }) => {
         throw new Error('Authentication token not found');
       }
 
-      const response = await axios.delete(`http://localhost:5000/api/movie/delete/${movieId}`, {
+      const response = await axios.delete(`https://cinemaniahub.onrender.com/api/movie/delete/${movieId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -208,7 +208,7 @@ const updateMovie = async (movieId, updatedData, fetchMovies, setNotification, n
       formData.append('photo', updatedData.photo);
     }
 
-    const response = await axios.patch(`http://localhost:5000/api/movie/update/${movieId}`, formData, {
+    const response = await axios.patch(`https://cinemaniahub.onrender.com/api/movie/update/${movieId}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,

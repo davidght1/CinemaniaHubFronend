@@ -36,7 +36,7 @@ const UserProvider = ({ children }) => {
 
   const loginUser = async (formData) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/user/login', formData);
+      const response = await axios.post('https://cinemaniahub.onrender.com/api/user/login', formData);
       if (response.status === 200) {
         const { id, email, name, userRole, coins, token } = response.data;
         setUser({ id, email, name, coins, userRole });
@@ -52,7 +52,7 @@ const UserProvider = ({ children }) => {
 
   const logoutUser = async () => {
     try {
-      await axios.get('http://localhost:5000/api/user/logout');
+      await axios.get('https://cinemaniahub.onrender.com/api/user/logout');
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -64,7 +64,7 @@ const UserProvider = ({ children }) => {
 
   const registerUser = async (formData) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/user/register', formData);
+      const response = await axios.post('https://cinemaniahub.onrender.com/api/user/register', formData);
       if (response.status === 201) {
         const { id, email, name, userRole, coins, token } = response.data;
         setUser({ id, email, name, coins, userRole });
@@ -89,7 +89,7 @@ const UserProvider = ({ children }) => {
 
   const getUserDetails = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/user/getUserDetails/${userId}`);
+      const response = await axios.get(`https://cinemaniahub.onrender.com/api/user/getUserDetails/${userId}`);
       return response.data; // Assuming response.data contains user details
     } catch (error) {
       return null;

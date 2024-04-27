@@ -20,7 +20,7 @@ export const ProductProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const response = await axios.get('http://localhost:5000/api/products', config);
+      const response = await axios.get('https://cinemaniahub.onrender.com/api/products', config);
       setProducts(response.data.products);
       setLoading(false);
     } catch (error) {
@@ -37,7 +37,7 @@ export const ProductProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const response = await axios.get(`http://localhost:5000/api/products/buy/${productId}`, config);
+      const response = await axios.get(`https://cinemaniahub.onrender.com/api/products/buy/${productId}`, config);
   
       const { message, coupon, updatedCoins } = response.data;
       return { success: true, message, coupon, updatedCoins };

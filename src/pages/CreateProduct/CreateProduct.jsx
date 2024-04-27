@@ -30,7 +30,7 @@ const CreateProduct = () => {
         throw new Error('Authentication token not found');
       }
 
-      const response = await axios.post('http://localhost:5000/api/products/create', formData, {
+      const response = await axios.post('https://cinemaniahub.onrender.com/api/products/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`, // Include token in Authorization header
