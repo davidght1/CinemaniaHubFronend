@@ -11,12 +11,6 @@
   background-color: #f0f0f0; /* Set a background color */
 }
 
-* {
-  font-family: 'Mouse Memoirs', sans-serif;
-  font-weight: 400; /* Default font weight */
-  font-style: normal; /* Default font style (normal) */
-}
-
 /* Apply Mouse Memoirs font family to all text within the body and HTML elements */
 body, html {
   font-family: 'Mouse Memoirs', sans-serif;
