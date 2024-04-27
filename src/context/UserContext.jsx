@@ -77,19 +77,45 @@ const UserProvider = ({ children }) => {
         password
       });
   
+      // Check if the registration was successful (status 201)
       if (response.status === 201) {
         const { id, email, name, userRole, coins, token } = response.data;
+  
+        // Update user context with the registered user's information
         setUser({ id, email, name, coins, userRole });
         setIsAuthenticated(true);
+  
+        // Store user data and token in local storage for persistent login
         localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
         localStorage.setItem('token', token);
-      }
   
-      return response.data;
+        // Return the response data on successful registration
+        return { data: response.data };
+      } else {
+        // Handle other non-201 responses (e.g., unexpected status codes)
+        return { error: 'Registration failed. Please try again.' };
+      }
     } catch (error) {
-      return { error: 'Registration failed. Please try again.' };
+      // Handle axios request errors
+      if (error.response) {
+        // The request was made and the server responded with a non-2xx status code
+        const { status, data } = error.response;
+  
+        if (status === 400 && data.error === "Email has already been registered") {
+          // Specific error message for existing email
+          return { error: 'Email is already registered. Please use a different email address.' };
+        } else {
+          // General error message for other server-side errors
+          return { error: 'Registration failed. Please try again.' };
+        }
+      } else {
+        // Handle network errors or other unexpected errors
+        console.error('Registration error:', error);
+        return { error: 'Registration failed. Please try again.' };
+      }
     }
   };
+  
 
   const updateUserCoins = async (newCoins) => {
     try {
