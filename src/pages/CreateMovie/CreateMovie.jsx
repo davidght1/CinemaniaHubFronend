@@ -88,7 +88,7 @@ const CreateMovie = () => {
           <option value="Horror">Horror</option>
           <option value="Comedy">Comedy</option>
           <option value="Drama">Drama</option>
-          <option value="Docu">Documentary</option>
+          <option value="Documentary">Documentary</option>
           <option value="Science Fiction">Science Fiction</option>
           <option value="Action">Action</option>
           <option value="Family Film">Family Film</option>
