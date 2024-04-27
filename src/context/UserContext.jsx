@@ -63,8 +63,20 @@ const UserProvider = ({ children }) => {
   };
 
   const registerUser = async (formData) => {
+    const { name, email, password } = formData;
+  
+    // Check if the password length is less than 6 characters
+    if (password.length < 6) {
+      return { error: 'Password must be at least 6 characters' };
+    }
+  
     try {
-      const response = await axios.post('https://cinemaniahub.onrender.com/api/user/register', formData);
+      const response = await axios.post('https://cinemaniahub.onrender.com/api/user/register', {
+        name,
+        email,
+        password
+      });
+  
       if (response.status === 201) {
         const { id, email, name, userRole, coins, token } = response.data;
         setUser({ id, email, name, coins, userRole });
@@ -72,6 +84,7 @@ const UserProvider = ({ children }) => {
         localStorage.setItem('userData', JSON.stringify({ id, email, name, coins, userRole }));
         localStorage.setItem('token', token);
       }
+  
       return response.data;
     } catch (error) {
       return { error: 'Registration failed. Please try again.' };
