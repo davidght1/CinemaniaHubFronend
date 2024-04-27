@@ -31,15 +31,16 @@ h1 {
 }
 
 .movie-image-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+  width: 100%; /* Ensure the container spans the width of its parent */
+  max-width: 800px; /* Limit the maximum width of the image container */
+  margin: 0 auto; /* Center the image container horizontally */
 }
 
 .movie-image {
-  width: 100%; /* Ensure the image width covers the entire container */
-  height: 450px; /* Set a fixed height for all images */
-  object-fit: fill; /* Scale the image while preserving aspect ratio */
+  width: 100%; /* Set the width to fill the container */
+  height: auto; /* Automatically adjust the height to maintain aspect ratio */
+  max-height: 450px; /* Limit the maximum height of the image */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -156,19 +157,21 @@ h1 {
   opacity: 0;
 }
 
+/* Styling for home button */
 .home-button {
   display: inline-block;
   padding: 10px 20px;
   margin-bottom: 20px;
   font-size: 20px;
   text-decoration: none;
-  background-color: #2196f3;
-  color: #fff;
+  color: #ffffff;
+  background-color: #007bff;
   border: 2px solid #007bff;
   border-radius: 5px;
   cursor: pointer;
 }
 
+/* Adjust hover effect for home button */
 .home-button:hover {
   background-color: #0056b3;
   border-color: #0056b3;
