@@ -114,15 +114,15 @@ const UpdateMovie = () => {
               className="form-control"
               required
             >
-              <option value="">Select Genre</option>
-              <option value="Horror">Horror</option>
-              <option value="Comedy">Comedy</option>
-              <option value="Drama">Drama</option>
-              <option value="Documentary">Documentary</option>
-              <option value="Science Fiction">Science Fiction</option>
-              <option value="Action">Action</option>
-              <option value="Family Film">Family Film</option>
-              <option value="Not for Children">Not for Children</option>
+          <option value="">Select Genre</option>
+          <option value="Horror">Horror</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Drama">Drama</option>
+          <option value="Documentary">Documentary</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Action">Action</option>
+          <option value="Family Film">Family Film</option>
+          <option value="Not For Children">Not for Children</option>
             </select>
           </div>
 
