@@ -21,7 +21,7 @@ function App() {
     <MovieProvider>
       <UserProvider>
       <ProductProvider>
-        <BrowserRouter>
+        <BrowserRouter basename='https://cinemania-hub-fronend.vercel.app'>
           <Navbar />
           <div className="content">
             <Routes>
