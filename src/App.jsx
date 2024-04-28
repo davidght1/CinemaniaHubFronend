@@ -15,6 +15,7 @@ import CreateMovie from './pages/CreateMovie/CreateMovie';
 import CreateProduct from './pages/CreateProduct/CreateProduct';
 import UpdateMovie from './pages/UpdateMovie/UpdateMovie';
 import MovieStats from './pages/MovieStats/MovieStats';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path='/create-product' element={<CreateProduct/>}/>
               <Route path='/update-movie/:id' element={<UpdateMovie/>}/>
               <Route path='/movie-stats' element={<MovieStats/>}/>
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </div>
         </BrowserRouter>

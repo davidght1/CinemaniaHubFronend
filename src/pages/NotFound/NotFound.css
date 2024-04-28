@@ -1,0 +1,30 @@
+.not-found {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .not-found h1 {
+    font-size: 3em;
+    color: #ff4d4f; /* Red color */
+    margin-bottom: 20px;
+  }
+  
+  .not-found p {
+    font-size: 1.2em;
+    color: #555; /* Dark gray color */
+    margin-bottom: 40px;
+  }
+  
+  .not-found a {
+    text-decoration: none;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .not-found a:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
