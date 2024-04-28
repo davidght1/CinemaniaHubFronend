@@ -105,7 +105,7 @@ const UserProvider = ({ children }) => {
           // Specific error message for existing email
           return { error: 'Email is already registered. Please use a different email address.' };
         } else if(status ===400 && data.error === "Name must contain only alphabetic characters"){
-          return {error: 'Name must contain only alphabetic characters (without spaces and Special symbols!!!'}
+          return {error: 'Name must contain only alphabetic characters. do not use spaces and Special symbols'}
         } else {
           // General error message for other server-side errors
           return { error: 'Registration failed. Please try again.' };
