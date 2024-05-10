@@ -9,7 +9,7 @@ const Home = () => {
   useEffect(() => {
     // Fetch movies when Home component mounts
     getMovies();
-  }, [getMovies]); 
+  }, []); 
 
   return (
     <div className="home-container">
